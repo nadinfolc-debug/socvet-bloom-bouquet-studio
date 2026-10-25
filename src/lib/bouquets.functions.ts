@@ -54,7 +54,7 @@ const PRODUCT_NODE = `id title description status updatedAt tags
 export const listBouquets = createServerFn({ method: 'GET' }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   await assertAdmin(context);
   const data = await shopify(`{ products(first: 100, sortKey: UPDATED_AT, reverse: true) { nodes { ${PRODUCT_NODE} } } shop { currencyCode } }`);
-  return data.products.nodes.map((p: any): AdminBouquet => {
+  const rows: AdminBouquet[] = data.products.nodes.map((p: any): AdminBouquet => {
     const images = p.media.nodes.filter((m: any) => m.image?.url).map((m: any) => ({ id: m.id, url: m.image.url }));
     const optionName = p.options[0]?.name ?? DEFAULT_OPTION;
     const variants: AdminVariant[] = p.variants.nodes.map((v: any) => ({ id: v.id, name: v.title === DEFAULT_VALUE ? '' : v.title, price: v.price, compareAtPrice: v.compareAtPrice }));
@@ -67,6 +67,7 @@ export const listBouquets = createServerFn({ method: 'GET' }).middleware([requir
       optionName: optionName === DEFAULT_OPTION ? 'Размер' : optionName, variants,
     };
   });
+  return rows;
 });
 
 async function uploadImage(image: { data: string; mime: string }) {
@@ -155,7 +156,8 @@ export const deleteBouquet = createServerFn({ method: 'POST' }).middleware([requ
 export const listCollections = createServerFn({ method: 'GET' }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   await assertAdmin(context);
   const d = await shopify(`{ collections(first: 100, sortKey: TITLE) { nodes { id title productsCount { count } } } }`);
-  return d.collections.nodes.map((c: any): AdminCollection => ({ id: c.id, title: c.title, count: c.productsCount?.count ?? 0 }));
+  const cols: AdminCollection[] = d.collections.nodes.map((c: any): AdminCollection => ({ id: c.id, title: c.title, count: c.productsCount?.count ?? 0 }));
+  return cols;
 });
 
 export const saveCollection = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
