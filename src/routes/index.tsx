@@ -5,6 +5,7 @@ import { ProductCard, EmptyProducts } from "@/components/site/ProductCard";
 import { productsQuery } from "@/lib/queries";
 import hero from "@/assets/hero.jpg";
 import atelier from "@/assets/atelier.jpg";
+import { RequestForm } from '@/components/site/RequestForm';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -13,6 +14,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Скульптурные букеты, необычные сочетания и выразительные композиции. Доставка по Москве. Чувства обретают форму." },
       { property: "og:title", content: "Соцвет — цветы как искусство" },
       { property: "og:description", content: "Авторская флористика в Москве. Чувства обретают форму." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -81,9 +84,7 @@ function Index() {
             <p className="mt-8 max-w-md leading-relaxed opacity-75">
               Не нашли тот самый? Посоветуйтесь с флористом: расскажите о поводе, любимых цветах и бюджете. Вместе подберём сочетания и соберём букет на заказ.
             </p>
-            <Button variant="petal" size="xl" className="mt-10" asChild>
-              <a href="mailto:hello@socvet.ru">Посоветоваться с флористом</a>
-            </Button>
+            <RequestForm />
           </div>
           <img src={atelier} alt="Руки флориста собирают весенний букет" loading="lazy" width={1008} height={1312} className="w-full max-w-md justify-self-end" />
         </div>
