@@ -18,27 +18,36 @@ export type Database = {
         Row: {
           consent: boolean
           created_at: string
+          delivery_address: string | null
+          desired_delivery_time: string | null
           id: string
           message: string
           name: string
+          order_lines: Json | null
           phone: string
           status: string
         }
         Insert: {
           consent: boolean
           created_at?: string
+          delivery_address?: string | null
+          desired_delivery_time?: string | null
           id?: string
           message: string
           name: string
+          order_lines?: Json | null
           phone: string
           status?: string
         }
         Update: {
           consent?: boolean
           created_at?: string
+          delivery_address?: string | null
+          desired_delivery_time?: string | null
           id?: string
           message?: string
           name?: string
+          order_lines?: Json | null
           phone?: string
           status?: string
         }

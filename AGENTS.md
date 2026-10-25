@@ -12,4 +12,4 @@
 - Store florist requests in Cloud with admin-only read/update RLS; public visitors may only submit consented requests, so personal data remains private.
 - Keep Shopify as the product/order source of truth; the workshop edits bouquets through admin-checked server functions that call the Shopify Admin API, so there is no duplicate catalog and the Admin token never reaches the browser.
 - Put the workshop under the client-only authenticated layout; grant owner roles only from verified auth email in a protected database trigger, never from browser state or user metadata.
-- Both cart views use the shared checkout opener synchronously from the click; refresh Shopify's checkout URL during cart sync and normalize persisted URLs so stale state and popup blocking are handled consistently.
+- Both cart views open the shared delivery request dialog and submit an unpaid request to Cloud; verify selected variants and prices server-side against Shopify so visitor data cannot override the catalog. Cloud stores request snapshots, not paid orders; payment is separate.

@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, X, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
-import { openShopifyCheckout } from "@/lib/checkout";
+import { DeliveryRequestDialog } from '@/components/site/DeliveryRequestDialog';
 
 export function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false);
+  const [deliveryOpen, setDeliveryOpen] = useState(false);
   const { items, isLoading, isSyncing, updateQuantity, removeItem, syncCart } = useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
@@ -19,11 +20,12 @@ export function CartDrawer() {
   }, [isOpen, syncCart]);
 
   const handleCheckout = () => {
-    if (openShopifyCheckout()) setIsOpen(false);
+    setIsOpen(false);
+    setDeliveryOpen(true);
   };
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <><Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <button className="eyebrow relative flex items-center gap-2 hover:text-primary" aria-label="Открыть корзину">
           Корзина
@@ -87,6 +89,6 @@ export function CartDrawer() {
           )}
         </div>
       </SheetContent>
-    </Sheet>
+    </Sheet><DeliveryRequestDialog open={deliveryOpen} onOpenChange={setDeliveryOpen} /></>
   );
 }
