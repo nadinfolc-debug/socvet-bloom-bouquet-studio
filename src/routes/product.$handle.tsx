@@ -12,6 +12,8 @@ export const Route = createFileRoute("/product/$handle")({
   head: () => ({
     meta: [
       { title: "Букет — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },
       { property: "og:title", content: "Букет — Соцвет" },
       { property: "og:description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },

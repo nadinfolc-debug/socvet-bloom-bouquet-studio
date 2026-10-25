@@ -4,6 +4,8 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Политика конфиденциальности — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "description", content: "Как мастерская Соцвет обрабатывает и защищает персональные данные покупателей." },
       { property: "og:title", content: "Политика конфиденциальности — Соцвет" },
       { property: "og:description", content: "Как мастерская Соцвет обрабатывает персональные данные." },
