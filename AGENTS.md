@@ -10,5 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Store florist requests in Cloud with admin-only read/update RLS; public visitors may only submit consented requests, so personal data remains private.
-- Keep Shopify as the product/order source of truth and open its authenticated editor for product changes, avoiding duplicate catalogs or exposing Admin API credentials.
+- Keep Shopify as the product/order source of truth; the workshop edits bouquets through admin-checked server functions that call the Shopify Admin API, so there is no duplicate catalog and the Admin token never reaches the browser.
 - Put the workshop under the client-only authenticated layout; grant owner roles only from verified auth email in a protected database trigger, never from browser state or user metadata.
