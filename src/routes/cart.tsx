@@ -76,11 +76,11 @@ function CartPage() {
               <p className="mt-4 text-xs text-muted-foreground">
                 Оформляя заказ, вы принимаете <Link to="/offer" className="underline">оферту</Link> и <Link to="/privacy" className="underline">политику конфиденциальности</Link>.
               </p>
-       <DeliveryRequestDialog open={deliveryOpen} onOpenChange={setDeliveryOpen} />
-     </div>
+            </div>
           </aside>
         </div>
       )}
+      <DeliveryRequestDialog open={deliveryOpen} onOpenChange={setDeliveryOpen} />
     </div>
   );
 }
