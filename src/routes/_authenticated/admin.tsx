@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { requestsQuery, statuses, type RequestStatus } from '@/lib/requests';
 import { BouquetManager } from '@/components/site/BouquetManager';
+import { deliveryLinesSchema } from '@/lib/delivery-schema';
+import { formatPrice } from '@/lib/shopify';
 
 export const Route = createFileRoute('/_authenticated/admin')({
   head: () => ({ meta: [
@@ -36,14 +38,18 @@ function Workshop() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
   const [updating, setUpdating] = useState<string | null>(null);
-  const rows = requests.data?.filter(r => (filter === 'all' || r.status === filter) && `${r.name} ${r.phone} ${r.message}`.toLowerCase().includes(search.toLowerCase())) ?? [];
+  const rows = requests.data?.filter(r => (filter === 'all' || r.status === filter) && `${r.name} ${r.phone} ${r.message} ${r.delivery_address ?? ''}`.toLowerCase().includes(search.toLowerCase())) ?? [];
   return <Tabs defaultValue="requests">
     <TabsList className="mb-8"><TabsTrigger value="requests">Заявки{requests.data ? ` · ${requests.data.filter(r => r.status === 'new').length}` : ''}</TabsTrigger><TabsTrigger value="products">Букеты</TabsTrigger></TabsList>
     <TabsContent value="requests">
       <div className="mb-6 flex flex-wrap gap-3"><Input aria-label="Поиск заявок" placeholder="Имя, телефон или пожелания" className="max-w-sm" value={search} onChange={e => setSearch(e.target.value)} /><Select value={filter} onValueChange={setFilter}><SelectTrigger className="w-44" aria-label="Фильтр заявок"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">Все заявки</SelectItem>{Object.entries(statuses).map(([key, label]) => <SelectItem key={key} value={key}>{label}</SelectItem>)}</SelectContent></Select><Button variant="outline" size="icon" title="Обновить заявки" aria-label="Обновить заявки" onClick={() => requests.refetch()}><RefreshCw /></Button></div>
       {requests.isPending ? <p>Загружаем заявки…</p> : requests.isError ? <p role="alert">Не удалось загрузить заявки. Попробуйте обновить.</p> : rows.length === 0 ? <p className="border-y py-16 text-muted-foreground">{search || filter !== 'all' ? 'По вашему запросу ничего не найдено.' : 'Заявок пока нет.'}</p> : <div className="divide-y border-y">{rows.map(r => <article key={r.id} className="grid gap-5 py-7 md:grid-cols-[1fr_2fr_170px]">
         <div><h2 className="font-display text-3xl">{r.name}</h2><a href={`tel:${r.phone.replace(/[^+\d]/g, '')}`} className="text-sm text-primary underline">{r.phone}</a><p className="mt-3 text-xs text-muted-foreground">{new Date(r.created_at).toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })}</p></div>
-        <p className="whitespace-pre-wrap break-words text-sm leading-relaxed">{r.message}</p>
+        <div className="min-w-0 space-y-3 break-words text-sm leading-relaxed">
+          {r.delivery_address && <><p><span className="text-muted-foreground">Адрес: </span>{r.delivery_address}</p><p><span className="text-muted-foreground">Желаемое время: </span>{r.desired_delivery_time}</p><p className="text-primary">Оплата согласовывается отдельно</p></>}
+          {(() => { const lines = deliveryLinesSchema.safeParse(r.order_lines); return lines.success ? <ul className="space-y-1">{lines.data.map(line => <li key={line.variantId}>{line.title}{line.variantTitle !== 'Default Title' ? ` · ${line.variantTitle}` : ''} × {line.quantity} — {formatPrice(line.unitPrice * line.quantity)}</li>)}<li className="pt-2 font-semibold">Букеты: {formatPrice(lines.data.reduce((sum, line) => sum + line.unitPrice * line.quantity, 0))}</li></ul> : null; })()}
+          <p className="whitespace-pre-wrap">{r.message}</p>
+        </div>
         <Select value={r.status} disabled={updating === r.id} onValueChange={async value => {
           setUpdating(r.id);
           const { error } = await supabase.from('florist_requests').update({ status: value as RequestStatus }).eq('id', r.id);
