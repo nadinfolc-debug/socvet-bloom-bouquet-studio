@@ -8,6 +8,13 @@
       "when": 1792941779966,
       "tag": "0000_florist_requests_admin",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792941858954,
+      "tag": "0001_grant_owner_on_verified_signin",
+      "breakpoints": true
     }
   ]
 }
