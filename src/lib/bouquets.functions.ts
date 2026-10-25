@@ -108,10 +108,7 @@ export const saveBouquet = createServerFn({ method: 'POST' }).middleware([requir
     const input = {
       title: data.title, descriptionHtml: toHtml(data.description), status: data.visible ? 'ACTIVE' : 'DRAFT',
       productType: 'Букет', vendor: 'Соцвет', tags: data.tags, collections: data.collectionIds, files,
-      metafields: [
-        { namespace: 'custom', key: 'composition', type: 'multi_line_text_field', value: data.composition || ' ' },
-        { namespace: 'custom', key: 'size', type: 'multi_line_text_field', value: data.size || ' ' },
-      ],
+      metafields: (['composition', 'size'] as const).filter(k => data[k]).map(k => ({ namespace: 'custom', key: k, type: 'multi_line_text_field', value: data[k] })),
       productOptions: [{ name: optionName, values: variants.map(v => ({ name: v.optionValues[0]!.name })) }],
       variants,
     };
@@ -119,6 +116,12 @@ export const saveBouquet = createServerFn({ method: 'POST' }).middleware([requir
       { input, identifier: data.id ? { id: data.id } : null });
     userErrors(r.productSet.userErrors);
     const productId = r.productSet.product.id as string;
+    const cleared = (['composition', 'size'] as const).filter(k => !data[k]);
+    if (data.id && cleared.length) {
+      const d = await shopify(`mutation($m: [MetafieldIdentifierInput!]!) { metafieldsDelete(metafields: $m) { userErrors { message } } }`,
+        { m: cleared.map(key => ({ ownerId: productId, namespace: 'custom', key })) });
+      userErrors(d.metafieldsDelete.userErrors);
+    }
     if (!data.id) await publishEverywhere(productId);
     return { id: productId };
   });
