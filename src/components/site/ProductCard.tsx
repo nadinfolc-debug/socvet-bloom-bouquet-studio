@@ -42,7 +42,10 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
       <div className="mt-5 flex items-baseline justify-between gap-4">
         <h3 className="font-display text-3xl">{p.title}</h3>
         <span className="whitespace-nowrap text-sm font-semibold text-primary">
-          {formatPrice(p.priceRange.minVariantPrice.amount, p.priceRange.minVariantPrice.currencyCode)}
+          {p.variants.edges.length > 1 ? "от " : ""}{formatPrice(p.priceRange.minVariantPrice.amount, p.priceRange.minVariantPrice.currencyCode)}
+          {variant?.compareAtPrice && Number(variant.compareAtPrice.amount) > Number(variant.price.amount) && (
+            <s className="ml-2 font-normal text-muted-foreground">{formatPrice(variant.compareAtPrice.amount)}</s>
+          )}
         </span>
       </div>
       {p.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.description}</p>}

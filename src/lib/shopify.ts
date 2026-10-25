@@ -20,21 +20,30 @@ export interface ShopifyProduct {
           id: string;
           title: string;
           price: { amount: string; currencyCode: string };
+          compareAtPrice?: { amount: string; currencyCode: string } | null;
           availableForSale: boolean;
           selectedOptions: Array<{ name: string; value: string }>;
         };
       }>;
     };
     options: Array<{ name: string; values: string[] }>;
+    tags?: string[];
+    composition?: { value: string } | null;
+    size?: { value: string } | null;
+    collections?: { nodes: Array<{ id: string; title: string; handle: string }> };
   };
 }
 
 const PRODUCT_FIELDS = `
   id title description handle
   priceRange { minVariantPrice { amount currencyCode } }
-  images(first: 5) { edges { node { url altText } } }
-  variants(first: 10) { edges { node { id title price { amount currencyCode } availableForSale selectedOptions { name value } } } }
+  images(first: 10) { edges { node { url altText } } }
+  variants(first: 10) { edges { node { id title price { amount currencyCode } compareAtPrice { amount currencyCode } availableForSale selectedOptions { name value } } } }
   options { name values }
+  tags
+  composition: metafield(namespace: "custom", key: "composition") { value }
+  size: metafield(namespace: "custom", key: "size") { value }
+  collections(first: 10) { nodes { id title handle } }
 `;
 
 export const PRODUCTS_QUERY = `
