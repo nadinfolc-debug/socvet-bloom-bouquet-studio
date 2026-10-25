@@ -163,11 +163,11 @@ export const saveCollection = createServerFn({ method: 'POST' }).middleware([req
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     if (data.id) {
-      const r = await shopify(`mutation($c: CollectionInput!) { collectionUpdate(input: $c) { userErrors { message } } }`, { c: { id: data.id, title: data.title } });
+      const r = await shopify(`mutation($c: CollectionUpdateInput!) { collectionUpdate(collection: $c) { userErrors { message } } }`, { c: { id: data.id, title: data.title } });
       userErrors(r.collectionUpdate.userErrors);
       return { id: data.id };
     }
-    const r = await shopify(`mutation($c: CollectionInput!) { collectionCreate(input: $c) { collection { id } userErrors { message } } }`, { c: { title: data.title } });
+    const r = await shopify(`mutation($c: CollectionCreateInput!) { collectionCreate(collection: $c) { collection { id } userErrors { message } } }`, { c: { title: data.title } });
     userErrors(r.collectionCreate.userErrors);
     await publishEverywhere(r.collectionCreate.collection.id);
     return { id: r.collectionCreate.collection.id as string };
