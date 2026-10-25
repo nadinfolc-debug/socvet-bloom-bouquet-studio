@@ -55,8 +55,7 @@ function Workshop() {
       </article>)}</div>}
     </TabsContent>
     <TabsContent value="products">
-      <div className="mb-8 flex flex-wrap gap-3"><Button asChild><a href={`${SHOPIFY_ADMIN_URL}/products/new`} target="_blank" rel="noopener noreferrer"><Plus />Добавить букет</a></Button><Button variant="outline" asChild><a href={`${SHOPIFY_ADMIN_URL}/products`} target="_blank" rel="noopener noreferrer"><ExternalLink />Все товары в Shopify</a></Button><Button variant="outline" asChild><a href={`${SHOPIFY_ADMIN_URL}/orders`} target="_blank" rel="noopener noreferrer">Заказы Shopify</a></Button></div>
-      {products.isPending ? <p>Загружаем букеты…</p> : products.isError ? <p role="alert">Не удалось загрузить каталог.</p> : !products.data?.length ? <p className="border-y py-16 text-muted-foreground">В каталоге пока нет букетов.</p> : <div className="divide-y border-y">{products.data.map(({ node: p }) => <article className="flex flex-wrap items-center gap-5 py-5" key={p.id}>{p.images.edges[0] && <img className="h-20 w-16 shrink-0 object-cover" src={p.images.edges[0].node.url} alt={p.title} />}<div className="min-w-0 flex-1"><h2 className="font-display text-3xl break-words">{p.title}</h2><p className="text-sm">{formatPrice(p.priceRange.minVariantPrice.amount, p.priceRange.minVariantPrice.currencyCode)}</p></div><Button variant="outline" asChild><a href={`${SHOPIFY_ADMIN_URL}/products/${p.id.split('/').at(-1)}`} target="_blank" rel="noopener noreferrer">Редактировать<ExternalLink /></a></Button></article>)}</div>}
+      <BouquetManager />
     </TabsContent>
   </Tabs>;
 }
