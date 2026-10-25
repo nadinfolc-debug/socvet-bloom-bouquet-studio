@@ -10,9 +10,9 @@ import sculpture from "@/assets/sculpture.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "СОЦВЕТ — цветы как искусство | Авторская флористика, Москва" },
+      { title: "Соцвет — цветы как искусство | Авторская флористика, Москва" },
       { name: "description", content: "Скульптурные букеты, необычные сочетания и выразительные композиции. Доставка по Москве. Чувства обретают форму." },
-      { property: "og:title", content: "СОЦВЕТ — цветы как искусство" },
+      { property: "og:title", content: "Соцвет — цветы как искусство" },
       { property: "og:description", content: "Авторская флористика в Москве. Чувства обретают форму." },
     ],
   }),

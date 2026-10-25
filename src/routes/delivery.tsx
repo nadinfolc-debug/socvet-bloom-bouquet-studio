@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
-      { title: "Доставка и оплата — СОЦВЕТ" },
+      { title: "Доставка и оплата — Соцвет" },
       { name: "description", content: "Доставка авторских букетов по Москве: сроки, зоны и способы оплаты." },
-      { property: "og:title", content: "Доставка и оплата — СОЦВЕТ" },
+      { property: "og:title", content: "Доставка и оплата — Соцвет" },
       { property: "og:description", content: "Доставка авторских букетов по Москве: сроки, зоны и способы оплаты." },
     ],
   }),

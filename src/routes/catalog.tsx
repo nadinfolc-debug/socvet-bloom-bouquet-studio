@@ -7,9 +7,9 @@ import { productsQuery } from "@/lib/queries";
 export const Route = createFileRoute("/catalog")({
   head: () => ({
     meta: [
-      { title: "Каталог букетов — СОЦВЕТ" },
+      { title: "Каталог букетов — Соцвет" },
       { name: "description", content: "Авторские букеты и скульптурные композиции с доставкой по Москве." },
-      { property: "og:title", content: "Каталог букетов — СОЦВЕТ" },
+      { property: "og:title", content: "Каталог букетов — Соцвет" },
       { property: "og:description", content: "Авторские букеты и скульптурные композиции с доставкой по Москве." },
     ],
   }),

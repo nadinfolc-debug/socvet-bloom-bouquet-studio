@@ -7,10 +7,10 @@ import { formatPrice } from "@/lib/shopify";
 export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
-      { title: "Корзина — СОЦВЕТ" },
-      { name: "description", content: "Ваши выбранные букеты мастерской СОЦВЕТ." },
-      { property: "og:title", content: "Корзина — СОЦВЕТ" },
-      { property: "og:description", content: "Ваши выбранные букеты мастерской СОЦВЕТ." },
+      { title: "Корзина — Соцвет" },
+      { name: "description", content: "Ваши выбранные букеты мастерской Соцвет." },
+      { property: "og:title", content: "Корзина — Соцвет" },
+      { property: "og:description", content: "Ваши выбранные букеты мастерской Соцвет." },
       { name: "robots", content: "noindex" },
     ],
   }),
