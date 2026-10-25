@@ -20,7 +20,7 @@ async function compress(file: File): Promise<{ data: string; mime: 'image/jpeg';
   canvas.width = Math.round(bmp.width * scale); canvas.height = Math.round(bmp.height * scale);
   canvas.getContext('2d')!.drawImage(bmp, 0, 0, canvas.width, canvas.height);
   const url = canvas.toDataURL('image/jpeg', 0.86);
-  return { data: url.split(',')[1], mime: 'image/jpeg', preview: url };
+  return { data: url.split(',')[1] ?? '', mime: 'image/jpeg', preview: url };
 }
 
 export function BouquetManager() {

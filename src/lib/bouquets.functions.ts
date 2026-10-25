@@ -11,7 +11,7 @@ export type AdminBouquet = {
 };
 
 async function shopify<T = any>(query: string, variables: Record<string, unknown> = {}): Promise<T> {
-  const token = process.env.SHOPIFY_ACCESS_TOKEN;
+  const token = process.env['SHOPIFY_ACCESS_TOKEN'];
   if (!token) throw new Error('Магазин не подключён');
   const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Shopify-Access-Token': token }, body: JSON.stringify({ query, variables }) });
   if (!res.ok) throw new Error(`Shopify ${res.status}`);
@@ -32,11 +32,12 @@ export const toHtml = (text: string) => text.trim().split(/\n{2,}/).map(p => `<p
 export const listBouquets = createServerFn({ method: 'GET' }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {
   await assertAdmin(context);
   const data = await shopify(`{ products(first: 100, sortKey: UPDATED_AT, reverse: true) { nodes { id title description status featuredMedia { preview { image { url } } } variants(first: 1) { nodes { id price } } } } shop { currencyCode } }`);
-  return data.products.nodes.map((p: any): AdminBouquet => ({
+  const rows: AdminBouquet[] = data.products.nodes.map((p: any): AdminBouquet => ({
     id: p.id, title: p.title, description: p.description, status: p.status,
     price: p.variants.nodes[0]?.price ?? '0', currency: data.shop.currencyCode,
     image: p.featuredMedia?.preview?.image?.url ?? null, variantId: p.variants.nodes[0]?.id ?? null,
   }));
+  return rows;
 });
 
 export const bouquetSchema = z.object({
