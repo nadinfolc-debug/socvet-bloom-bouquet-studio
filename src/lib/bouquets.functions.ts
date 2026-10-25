@@ -86,7 +86,7 @@ async function uploadImage(image: { data: string; mime: string }) {
 }
 
 export const saveBouquet = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => bouquetSchema.parse(input))
+  .validator((input: unknown) => bouquetSchema.parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     const files = [];
@@ -129,7 +129,7 @@ export const saveBouquet = createServerFn({ method: 'POST' }).middleware([requir
 const idSchema = z.object({ id: z.string().startsWith('gid://shopify/Product/') });
 
 export const setBouquetVisible = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => idSchema.extend({ visible: z.boolean() }).parse(input))
+  .validator((input: unknown) => idSchema.extend({ visible: z.boolean() }).parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     const r = await shopify(`mutation($product: ProductUpdateInput!) { productUpdate(product: $product) { userErrors { message } } }`, { product: { id: data.id, status: data.visible ? 'ACTIVE' : 'DRAFT' } });
@@ -138,7 +138,7 @@ export const setBouquetVisible = createServerFn({ method: 'POST' }).middleware([
   });
 
 export const duplicateBouquet = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => idSchema.extend({ title: z.string().trim().min(1).max(120) }).parse(input))
+  .validator((input: unknown) => idSchema.extend({ title: z.string().trim().min(1).max(120) }).parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     const r = await shopify(`mutation($id: ID!, $title: String!) { productDuplicate(productId: $id, newTitle: $title, newStatus: DRAFT, includeImages: true, synchronous: true) { newProduct { id } userErrors { message } } }`, { id: data.id, title: data.title });
@@ -148,7 +148,7 @@ export const duplicateBouquet = createServerFn({ method: 'POST' }).middleware([r
   });
 
 export const deleteBouquet = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => idSchema.parse(input))
+  .validator((input: unknown) => idSchema.parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     const r = await shopify(`mutation($input: ProductDeleteInput!) { productDelete(input: $input) { deletedProductId userErrors { message } } }`, { input: { id: data.id } });
@@ -164,7 +164,7 @@ export const listCollections = createServerFn({ method: 'GET' }).middleware([req
 });
 
 export const saveCollection = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ id: z.string().startsWith('gid://shopify/Collection/').optional(), title: z.string().trim().min(1).max(80) }).parse(input))
+  .validator((input: unknown) => z.object({ id: z.string().startsWith('gid://shopify/Collection/').optional(), title: z.string().trim().min(1).max(80) }).parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     if (data.id) {
@@ -179,7 +179,7 @@ export const saveCollection = createServerFn({ method: 'POST' }).middleware([req
   });
 
 export const deleteCollection = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ id: z.string().startsWith('gid://shopify/Collection/') }).parse(input))
+  .validator((input: unknown) => z.object({ id: z.string().startsWith('gid://shopify/Collection/') }).parse(input))
   .handler(async ({ context, data }) => {
     await assertAdmin(context);
     const r = await shopify(`mutation($i: CollectionDeleteInput!) { collectionDelete(input: $i) { userErrors { message } } }`, { i: { id: data.id } });

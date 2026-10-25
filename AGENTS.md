@@ -13,3 +13,4 @@
 - Keep Shopify as the product/order source of truth; the workshop edits bouquets through admin-checked server functions that call the Shopify Admin API, so there is no duplicate catalog and the Admin token never reaches the browser.
 - Put the workshop under the client-only authenticated layout; grant owner roles only from verified auth email in a protected database trigger, never from browser state or user metadata.
 - Both cart views open the shared delivery request dialog and submit an unpaid request to Cloud; verify selected variants and prices server-side against Shopify so visitor data cannot override the catalog. Cloud stores request snapshots, not paid orders; payment is separate.
+- Bouquet saves use Shopify productSet (one declarative call for media, options/variants, metafields custom.composition/custom.size, collections); "sold out" = tracked inventory 0 with DENY policy so availableForSale stays the single source of truth.
