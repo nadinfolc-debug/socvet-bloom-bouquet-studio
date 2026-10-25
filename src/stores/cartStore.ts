@@ -26,7 +26,7 @@ interface CartStore {
   getCheckoutUrl: () => string | null;
 }
 
-const CART_QUERY = `query cart($id: ID!) { cart(id: $id) { id totalQuantity } }`;
+const CART_QUERY = `query cart($id: ID!) { cart(id: $id) { id totalQuantity checkoutUrl } }`;
 const LINES = `lines(first: 100) { edges { node { id merchandise { ... on ProductVariant { id } } } } }`;
 const CART_CREATE_MUTATION = `mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { id checkoutUrl ${LINES} } userErrors { field message } } }`;
 const CART_LINES_ADD_MUTATION = `mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $cartId, lines: $lines) { cart { id ${LINES} } userErrors { field message } } }`;
@@ -35,13 +35,14 @@ const CART_LINES_REMOVE_MUTATION = `mutation cartLinesRemove($cartId: ID!, $line
 
 type UserError = { field: string[] | null; message: string };
 
-function formatCheckoutUrl(checkoutUrl: string): string {
+function formatCheckoutUrl(checkoutUrl: string): string | null {
   try {
     const url = new URL(checkoutUrl);
+    if (url.protocol !== "https:") return null;
     url.searchParams.set("channel", "online_store");
     return url.toString();
   } catch {
-    return checkoutUrl;
+    return null;
   }
 }
 
@@ -61,9 +62,11 @@ async function createShopifyCart(item: CartItem) {
   }
   const cart = data?.data?.cartCreate?.cart;
   if (!cart?.checkoutUrl) return null;
+  const checkoutUrl = formatCheckoutUrl(cart.checkoutUrl);
+  if (!checkoutUrl) return null;
   const lineId = cart.lines.edges[0]?.node?.id;
   if (!lineId) return null;
-  return { cartId: cart.id as string, checkoutUrl: formatCheckoutUrl(cart.checkoutUrl), lineId: lineId as string };
+  return { cartId: cart.id as string, checkoutUrl, lineId: lineId as string };
 }
 
 async function addLineToShopifyCart(cartId: string, item: CartItem) {
@@ -175,7 +178,10 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => set({ items: [], cartId: null, checkoutUrl: null }),
-      getCheckoutUrl: () => get().checkoutUrl,
+      getCheckoutUrl: () => {
+        const url = get().checkoutUrl;
+        return url ? formatCheckoutUrl(url) : null;
+      },
 
       syncCart: async () => {
         const { cartId, isSyncing, clearCart } = get();
@@ -186,6 +192,9 @@ export const useCartStore = create<CartStore>()(
           if (!data) return;
           const cart = data?.data?.cart;
           if (!cart || cart.totalQuantity === 0) clearCart();
+          else if (get().cartId === cartId) {
+            set({ checkoutUrl: cart.checkoutUrl ? formatCheckoutUrl(cart.checkoutUrl) : null });
+          }
         } catch (error) {
           console.error("Failed to sync cart with Shopify:", error);
         } finally {

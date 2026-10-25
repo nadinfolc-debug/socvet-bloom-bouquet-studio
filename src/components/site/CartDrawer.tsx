@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, X, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
+import { openShopifyCheckout } from "@/lib/checkout";
 
 export function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false);
-  const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
+  const { items, isLoading, isSyncing, updateQuantity, removeItem, syncCart } = useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
   const currency = items[0]?.price.currencyCode ?? "EUR";
@@ -18,11 +19,7 @@ export function CartDrawer() {
   }, [isOpen, syncCart]);
 
   const handleCheckout = () => {
-    const url = getCheckoutUrl();
-    if (url) {
-      window.open(url, "_blank");
-      setIsOpen(false);
-    }
+    if (openShopifyCheckout()) setIsOpen(false);
   };
 
   return (

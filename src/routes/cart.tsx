@@ -3,6 +3,7 @@ import { Minus, Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice } from "@/lib/shopify";
+import { openShopifyCheckout } from "@/lib/checkout";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({
@@ -20,14 +21,9 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
-  const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl } = useCartStore();
+  const { items, isLoading, isSyncing, updateQuantity, removeItem } = useCartStore();
   const total = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
   const currency = items[0]?.price.currencyCode ?? "EUR";
-
-  const checkout = () => {
-    const url = getCheckoutUrl();
-    if (url) window.open(url, "_blank");
-  };
 
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
@@ -72,7 +68,7 @@ function CartPage() {
                 <span className="font-display text-4xl">{formatPrice(total, currency)}</span>
               </div>
               <p className="mt-6 text-sm text-muted-foreground">Адрес, время доставки и текст открытки вы укажете на следующем шаге.</p>
-              <Button variant="petal" size="xl" className="mt-8 w-full" onClick={checkout} disabled={isLoading || isSyncing}>
+              <Button variant="petal" size="xl" className="mt-8 w-full" onClick={openShopifyCheckout} disabled={isLoading || isSyncing}>
                 {isLoading || isSyncing ? <Loader2 className="animate-spin" /> : "Оформить заказ"}
               </Button>
               <p className="mt-4 text-xs text-muted-foreground">
