@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { LogOut, Plus, ExternalLink, RefreshCw } from 'lucide-react';
+import { LogOut, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -9,8 +9,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { requestsQuery, statuses, type RequestStatus } from '@/lib/requests';
-import { SHOPIFY_ADMIN_URL, formatPrice } from '@/lib/shopify';
-import { productsQuery } from '@/lib/queries';
+import { BouquetManager } from '@/components/site/BouquetManager';
 
 export const Route = createFileRoute('/_authenticated/admin')({
   head: () => ({ meta: [
@@ -34,7 +33,6 @@ function Admin() {
 function Workshop() {
   const client = useQueryClient();
   const requests = useQuery(requestsQuery);
-  const products = useQuery(productsQuery(100));
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
   const [updating, setUpdating] = useState<string | null>(null);
