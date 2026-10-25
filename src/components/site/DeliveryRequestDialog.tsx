@@ -1,0 +1,57 @@
+import { useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import { useServerFn } from '@tanstack/react-start';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { deliveryRequestSchema } from '@/lib/delivery-schema';
+import { submitDeliveryRequest } from '@/lib/delivery.functions';
+import { useCartStore } from '@/stores/cartStore';
+import { formatPrice } from '@/lib/shopify';
+
+export function DeliveryRequestDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
+  const items = useCartStore(state => state.items);
+  const submit = useServerFn(submitDeliveryRequest);
+  const [busy, setBusy] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
+  return <Dialog open={open} onOpenChange={value => {
+    if (busy) return;
+    onOpenChange(value);
+    if (!value) { setSent(false); setError(''); }
+  }}>
+    <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] overflow-y-auto">
+      <DialogTitle className="pr-6 font-display text-4xl font-medium">Доставка букета</DialogTitle>
+      <DialogDescription>Соцвет · Заявка на заказ</DialogDescription>
+      {sent ? <div className="space-y-5 py-4"><p role="status">Заявка получена. Мы свяжемся с вами, чтобы подтвердить доставку и согласовать оплату отдельно.</p><Button className="w-full" onClick={() => { onOpenChange(false); setSent(false); }}>Закрыть</Button></div> :
+      <form className="space-y-4" onSubmit={async event => {
+        event.preventDefault();
+        if (busy) return;
+        setError('');
+        const form = new FormData(event.currentTarget);
+        const parsed = deliveryRequestSchema.safeParse({
+          address: form.get('address'), phone: form.get('phone'), desiredTime: form.get('desiredTime'),
+          comment: form.get('comment'), consent: form.get('consent') === 'on',
+          items: items.map(item => ({ variantId: item.variantId, quantity: item.quantity })),
+        });
+        if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? 'Проверьте данные'); return; }
+        setBusy(true);
+        try { await submit({ data: parsed.data }); setSent(true); useCartStore.getState().clearCart(); }
+        catch { setError('Не удалось отправить заявку. Проверьте корзину и попробуйте ещё раз.'); }
+        finally { setBusy(false); }
+      }}>
+        <ul className="space-y-2 border-y py-3 text-sm">{items.map(item => <li key={item.variantId} className="flex justify-between gap-4"><span className="break-words">{item.product.node.title} × {item.quantity}</span><span className="shrink-0">{formatPrice(Number(item.price.amount) * item.quantity)}</span></li>)}</ul>
+        <div className="space-y-2"><Label htmlFor="delivery-address">Адрес доставки</Label><Textarea id="delivery-address" name="address" autoComplete="street-address" required maxLength={500} placeholder="Город, улица, дом, квартира, подъезд" disabled={busy} /></div>
+        <div className="space-y-2"><Label htmlFor="delivery-phone">Номер телефона</Label><Input id="delivery-phone" name="phone" type="tel" autoComplete="tel" required minLength={5} maxLength={40} disabled={busy} /></div>
+        <div className="space-y-2"><Label htmlFor="delivery-time">Дата и желаемое время получения</Label><Input id="delivery-time" name="desiredTime" required maxLength={100} placeholder="Например, 28 октября, с 14:00 до 16:00" disabled={busy} /></div>
+        <div className="space-y-2"><Label htmlFor="delivery-comment">Комментарий (необязательно)</Label><Textarea id="delivery-comment" name="comment" maxLength={2000} placeholder="Пожелания к букету или нюансы доставки" disabled={busy} /></div>
+        <label className="flex items-start gap-3 text-sm"><input type="checkbox" name="consent" required disabled={busy} className="mt-1" /><span>Согласен с <Link to="/privacy" className="underline">политикой конфиденциальности</Link> и обработкой персональных данных</span></label>
+        <p className="text-sm text-muted-foreground">Оплата — отдельно после подтверждения заказа.</p>
+        {error && <p role="alert" className="text-destructive">{error}</p>}
+        <Button type="submit" variant="petal" className="w-full" disabled={busy || items.length === 0}>{busy ? 'Отправляем…' : 'Отправить заявку'}</Button>
+      </form>}
+    </DialogContent>
+  </Dialog>;
+}
