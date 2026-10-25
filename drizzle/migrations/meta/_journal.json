@@ -15,6 +15,13 @@
       "when": 1792941858954,
       "tag": "0001_grant_owner_on_verified_signin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792942035547,
+      "tag": "0002_restrict_role_function_execution",
+      "breakpoints": true
     }
   ]
 }
