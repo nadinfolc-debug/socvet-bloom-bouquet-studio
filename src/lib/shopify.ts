@@ -86,8 +86,8 @@ export async function fetchProduct(handle: string): Promise<ShopifyProduct | nul
   return node ? { node } : null;
 }
 
-export function formatPrice(amount: string | number, currencyCode: string) {
-  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: currencyCode, maximumFractionDigits: 0 }).format(
+export function formatPrice(amount: string | number, _currencyCode?: string) {
+  return new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB", maximumFractionDigits: 0 }).format(
     Number(amount),
   );
 }
