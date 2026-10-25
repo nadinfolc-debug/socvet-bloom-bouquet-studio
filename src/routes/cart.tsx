@@ -8,6 +8,8 @@ export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
       { title: "Корзина — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "description", content: "Ваши выбранные букеты мастерской Соцвет." },
       { property: "og:title", content: "Корзина — Соцвет" },
       { property: "og:description", content: "Ваши выбранные букеты мастерской Соцвет." },

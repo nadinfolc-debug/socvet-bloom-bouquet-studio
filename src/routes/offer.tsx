@@ -4,6 +4,8 @@ export const Route = createFileRoute("/offer")({
   head: () => ({
     meta: [
       { title: "Публичная оферта — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "description", content: "Условия продажи и доставки букетов мастерской Соцвет." },
       { property: "og:title", content: "Публичная оферта — Соцвет" },
       { property: "og:description", content: "Условия продажи и доставки букетов мастерской Соцвет." },

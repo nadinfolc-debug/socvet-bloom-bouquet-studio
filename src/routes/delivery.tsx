@@ -4,6 +4,8 @@ export const Route = createFileRoute("/delivery")({
   head: () => ({
     meta: [
       { title: "Доставка и оплата — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "description", content: "Доставка авторских букетов по Москве: сроки, зоны и способы оплаты." },
       { property: "og:title", content: "Доставка и оплата — Соцвет" },
       { property: "og:description", content: "Доставка авторских букетов по Москве: сроки, зоны и способы оплаты." },

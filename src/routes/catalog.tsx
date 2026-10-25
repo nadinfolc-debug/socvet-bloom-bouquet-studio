@@ -8,6 +8,8 @@ export const Route = createFileRoute("/catalog")({
   head: () => ({
     meta: [
       { title: "Каталог букетов — Соцвет" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "description", content: "Авторские букеты и скульптурные композиции с доставкой по Москве." },
       { property: "og:title", content: "Каталог букетов — Соцвет" },
       { property: "og:description", content: "Авторские букеты и скульптурные композиции с доставкой по Москве." },

@@ -19,7 +19,10 @@ function Auth() {
   const [mode, setMode] = useState<'login' | 'signup' | 'reset' | 'password'>('login');
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
-  useEffect(() => { if (window.location.hash.includes('type=recovery')) setMode('password'); }, []);
+  useEffect(() => {
+    if (window.location.hash.includes('type=recovery')) { setMode('password'); return; }
+    void supabase.auth.getUser().then(({ data }) => { if (data.user) void navigate({ to: '/admin' }); });
+  }, [navigate]);
   async function social(provider: 'google' | 'lovable') {
     setBusy(true); setNotice('');
     const result = await lovable.auth.signInWithOAuth(provider, { redirect_uri: `${window.location.origin}/auth` });
