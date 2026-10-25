@@ -28,7 +28,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-ink-foreground/15 pt-6 text-xs opacity-60 md:flex-row">
-          <span>© {new Date().getFullYear()} СОЦВЕТ — созвучие цветов и оттенков</span>
+          <span>© {new Date().getFullYear()} Соцвет — созвучие цветов и оттенков</span>
           <span>Авторская флористика · Москва</span>
         </div>
       </div>

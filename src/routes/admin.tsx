@@ -5,9 +5,9 @@ import { SHOPIFY_ADMIN_URL } from "@/lib/shopify";
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
-      { title: "Панель мастерской — СОЦВЕТ" },
-      { name: "description", content: "Управление заказами и товарами мастерской СОЦВЕТ." },
-      { property: "og:title", content: "Панель мастерской — СОЦВЕТ" },
+      { title: "Панель мастерской — Соцвет" },
+      { name: "description", content: "Управление заказами и товарами мастерской Соцвет." },
+      { property: "og:title", content: "Панель мастерской — Соцвет" },
       { property: "og:description", content: "Управление заказами и товарами." },
       { name: "robots", content: "noindex" },
     ],

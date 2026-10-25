@@ -11,10 +11,10 @@ import { useCartStore } from "@/stores/cartStore";
 export const Route = createFileRoute("/product/$handle")({
   head: () => ({
     meta: [
-      { title: "Букет — СОЦВЕТ" },
-      { name: "description", content: "Авторский букет мастерской СОЦВЕТ с доставкой по Москве." },
-      { property: "og:title", content: "Букет — СОЦВЕТ" },
-      { property: "og:description", content: "Авторский букет мастерской СОЦВЕТ с доставкой по Москве." },
+      { title: "Букет — Соцвет" },
+      { name: "description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },
+      { property: "og:title", content: "Букет — Соцвет" },
+      { property: "og:description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },
     ],
   }),
   component: ProductPage,

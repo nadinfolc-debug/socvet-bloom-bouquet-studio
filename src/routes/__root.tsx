@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "СОЦВЕТ — авторская флористика в Москве" },
+      { title: "Соцвет — авторская флористика в Москве" },
       { name: "description", content: "Цветы как искусство: скульптурные букеты и необычные сочетания. Чувства обретают форму." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
