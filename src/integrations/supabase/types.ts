@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       florist_requests: {
         Row: {
+          admin_note: string | null
           consent: boolean
           created_at: string
           delivery_address: string | null
@@ -28,6 +29,7 @@ export type Database = {
           status: string
         }
         Insert: {
+          admin_note?: string | null
           consent: boolean
           created_at?: string
           delivery_address?: string | null
@@ -40,6 +42,7 @@ export type Database = {
           status?: string
         }
         Update: {
+          admin_note?: string | null
           consent?: boolean
           created_at?: string
           delivery_address?: string | null
@@ -52,6 +55,38 @@ export type Database = {
           status?: string
         }
         Relationships: []
+      }
+      request_status_history: {
+        Row: {
+          changed_at: string
+          changed_by: string | null
+          id: string
+          request_id: string
+          status: string
+        }
+        Insert: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: string
+          request_id: string
+          status: string
+        }
+        Update: {
+          changed_at?: string
+          changed_by?: string | null
+          id?: string
+          request_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "request_status_history_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "florist_requests"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {

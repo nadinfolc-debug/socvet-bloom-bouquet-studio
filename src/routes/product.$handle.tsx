@@ -62,7 +62,7 @@ function ProductPage() {
             {images[imgIdx] && <img src={images[imgIdx].url} alt={images[imgIdx].altText ?? p.title} className="h-full w-full object-cover" />}
           </div>
           {images.length > 1 && (
-            <div className="mt-4 flex gap-3">
+            <div className="mt-4 flex flex-wrap gap-3">
               {images.map((im, i) => (
                 <button key={im.url} onClick={() => setImgIdx(i)} className={`h-24 w-20 overflow-hidden ${i === imgIdx ? "ring-2 ring-primary" : "opacity-60"}`}>
                   <img src={im.url} alt="" className="h-full w-full object-cover" />
@@ -74,8 +74,16 @@ function ProductPage() {
         <div className="md:col-span-5 md:sticky md:top-28 md:self-start">
           <p className="eyebrow mb-6 text-primary">Авторская композиция</p>
           <h1 className="display-lg">{p.title}</h1>
-          <p className="mt-6 font-display text-4xl text-primary">{variant && formatPrice(variant.price.amount, variant.price.currencyCode)}</p>
-          {p.description && <p className="mt-8 leading-relaxed text-muted-foreground">{p.description}</p>}
+          <p className="mt-6 font-display text-4xl text-primary">{variant && formatPrice(variant.price.amount, variant.price.currencyCode)}
+            {variant?.compareAtPrice && Number(variant.compareAtPrice.amount) > Number(variant.price.amount) && <s className="ml-4 text-2xl text-muted-foreground">{formatPrice(variant.compareAtPrice.amount)}</s>}
+          </p>
+          {p.description && <p className="mt-8 whitespace-pre-line leading-relaxed text-muted-foreground">{p.description}</p>}
+          {(p.composition?.value.trim() || p.size?.value.trim()) && (
+            <dl className="mt-8 space-y-4 text-sm">
+              {p.composition?.value.trim() && <div className="grid grid-cols-[8rem_1fr] gap-4"><dt className="eyebrow text-muted-foreground">Состав</dt><dd className="whitespace-pre-line">{p.composition.value.trim()}</dd></div>}
+              {p.size?.value.trim() && <div className="grid grid-cols-[8rem_1fr] gap-4"><dt className="eyebrow text-muted-foreground">Размер</dt><dd className="whitespace-pre-line">{p.size.value.trim()}</dd></div>}
+            </dl>
+          )}
 
           {variants.length > 1 && (
             <div className="mt-10">
