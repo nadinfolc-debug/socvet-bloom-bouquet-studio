@@ -1,4 +1,4 @@
-import { WHATSAPP_URL, TELEGRAM_URL } from '@/lib/contacts';
+import { MAX_URL, TELEGRAM_URL, VK_URL } from '@/lib/contacts';
 
 const steps = [
   ['01', 'Выбор или совет', 'Выберите готовый букет в каталоге или напишите флористу — подберём под повод и бюджет.'],

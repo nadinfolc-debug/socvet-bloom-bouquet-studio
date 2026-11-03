@@ -1,3 +1,4 @@
-// Временные контакты — замените на настоящие номер и ник Telegram.
-export const WHATSAPP_URL = 'https://wa.me/79990000000?text=' + encodeURIComponent('Здравствуйте! Хочу посоветоваться по букету.');
+// Временные контакты — замените на настоящие номер MAX, ник Telegram и адрес группы ВКонтакте.
+export const MAX_URL = 'https://max.ru/@socvet';
 export const TELEGRAM_URL = 'https://t.me/socvet_flowers';
+export const VK_URL = 'https://vk.com/socvet_flowers';
