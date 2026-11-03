@@ -5,7 +5,7 @@ import { ProductCard, EmptyProducts } from "@/components/site/ProductCard";
 import { productsQuery } from "@/lib/queries";
 import hero from "@/assets/hero.jpg";
 import atelier from "@/assets/atelier.jpg";
-import { HowWeWork, Reviews, MessengerButtons } from '@/components/site/HomeSections';
+import { HowWeWork, Reviews, MessengerButtons, Stats, Florist, Faq } from '@/components/site/HomeSections';
 import { RequestForm } from '@/components/site/RequestForm';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -57,6 +57,8 @@ function Index() {
         </div>
       </section>
 
+      <Stats />
+
       {/* Коллекция */}
       <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-40">
         <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
@@ -78,8 +80,10 @@ function Index() {
         )}
       </section>
 
+      <Florist />
       <HowWeWork />
       <Reviews />
+      <Faq />
 
       {/* Насыщенный блок: мастерская */}
       <section className="relative overflow-hidden bg-ink text-ink-foreground">

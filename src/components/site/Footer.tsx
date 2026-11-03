@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ADDRESS, EMAIL, HOURS, PHONE, PHONE_HREF } from "@/lib/contacts";
 
 export function Footer() {
   return (
@@ -8,11 +9,11 @@ export function Footer() {
         <div className="mt-20 grid gap-10 text-sm md:grid-cols-4" data-reveal data-delay="1">
           <div>
             <p className="eyebrow mb-4 opacity-60">Мастерская</p>
-            <p className="leading-relaxed opacity-80">Москва<br />Ежедневно 9:00 — 21:00</p>
+            <p className="leading-relaxed opacity-80">{ADDRESS}<br />{HOURS}</p>
           </div>
           <div>
             <p className="eyebrow mb-4 opacity-60">Связь</p>
-            <p className="leading-relaxed opacity-80">+7 (000) 000-00-00<br />hello@socvet.ru</p>
+            <p className="leading-relaxed opacity-80"><a href={PHONE_HREF} className="hover:opacity-100">{PHONE}</a><br /><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
           </div>
           <div className="flex flex-col gap-2">
             <p className="eyebrow mb-2 opacity-60">Покупателям</p>
@@ -24,12 +25,13 @@ export function Footer() {
             <p className="eyebrow mb-2 opacity-60">Документы</p>
             <Link to="/privacy" className="opacity-80 hover:opacity-100">Политика конфиденциальности</Link>
             <Link to="/offer" className="opacity-80 hover:opacity-100">Публичная оферта</Link>
+            <Link to="/demo" className="opacity-80 hover:opacity-100">Демо панели управления</Link>
             <Link to="/admin" className="opacity-50 hover:opacity-100">Вход для команды</Link>
           </div>
         </div>
         <div className="mt-20 flex flex-col justify-between gap-4 border-t border-ink-foreground/15 pt-6 text-xs opacity-60 md:flex-row" data-reveal>
           <span>© {new Date().getFullYear()} Соцвет — созвучие цветов и оттенков</span>
-          <span>Авторская флористика · Москва</span>
+          <span>Концепт-проект для портфолио · данные и отзывы вымышлены</span>
         </div>
       </div>
     </footer>
