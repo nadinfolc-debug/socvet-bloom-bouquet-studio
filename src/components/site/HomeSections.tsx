@@ -71,9 +71,9 @@ export function Reviews() {
     <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
       <p className="eyebrow mb-6 text-primary">★★★★★ · 4,9 из 5 · Отзывы</p>
       <h2 className="display-lg mb-10 md:mb-12" data-reveal>Говорят<br /><em className="text-primary">наши гости</em></h2>
-      <div className="grid gap-8 md:grid-cols-3">{reviews.map(([name, why, text], i) => <figure key={name} className="bg-background p-8 shadow-soft" data-reveal data-delay={i % 3}>
+      <div className="grid gap-8 md:grid-cols-3">{reviews.map(([name, why, text], i) => <figure key={name} className="bg-background p-6 shadow-soft md:p-7" data-reveal data-delay={i % 3}>
         <p className="mb-4 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
-        <blockquote className="font-display text-2xl italic leading-snug">«{text}»</blockquote>
+        <blockquote className="font-display text-xl italic leading-snug md:text-2xl">«{text}»</blockquote>
         <figcaption className="mt-6 text-sm text-muted-foreground"><span className="text-foreground">{name}</span> · {why}</figcaption>
       </figure>)}</div>
     </div>
