@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { ProductCard, EmptyProducts } from "@/components/site/ProductCard";
 import { productsQuery } from "@/lib/queries";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
@@ -25,6 +26,7 @@ const sorts = [
 ] as const;
 
 function Catalog() {
+  useScrollReveal();
   const { data: products, isLoading } = useQuery(productsQuery(100));
   const [sort, setSort] = useState<(typeof sorts)[number]["id"]>("new");
   const [collection, setCollection] = useState<string | null>(null);

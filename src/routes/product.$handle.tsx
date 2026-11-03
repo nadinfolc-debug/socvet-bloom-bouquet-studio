@@ -8,6 +8,7 @@ import { productQuery } from "@/lib/queries";
 import { formatPrice } from "@/lib/shopify";
 import { MessengerButtons } from "@/components/site/HomeSections";
 import { useCartStore } from "@/stores/cartStore";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/product/$handle")({
   loader: ({ context, params }) => context.queryClient.ensureQueryData(productQuery(params.handle)).catch(() => null),
@@ -35,6 +36,7 @@ export const Route = createFileRoute("/product/$handle")({
 });
 
 function ProductPage() {
+  useScrollReveal();
   const { handle } = Route.useParams();
   const { data: product, isLoading } = useQuery(productQuery(handle));
   const [variantIdx, setVariantIdx] = useState(0);

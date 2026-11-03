@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -15,6 +16,7 @@ export const Route = createFileRoute("/privacy")({
 });
 
 function Privacy() {
+  useScrollReveal();
   return (
     <article className="prose-legal mx-auto max-w-3xl px-6 pb-32 pt-12" data-reveal>
       <h1 className="display-lg mb-10">Политика конфиденциальности</h1>

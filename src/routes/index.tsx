@@ -7,6 +7,7 @@ import hero from "@/assets/hero.jpg";
 import atelier from "@/assets/atelier.jpg";
 import { HowWeWork, Reviews, MessengerButtons } from '@/components/site/HomeSections';
 import { RequestForm } from '@/components/site/RequestForm';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useScrollReveal();
   const { data: products, isLoading } = useQuery(productsQuery(6));
 
   return (

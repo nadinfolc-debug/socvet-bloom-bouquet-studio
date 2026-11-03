@@ -17,7 +17,6 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { useCartSync } from "@/hooks/useCartSync";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { supabase } from '@/integrations/supabase/client';
 
 function NotFoundComponent() {
@@ -121,7 +120,6 @@ function RootComponent() {
     return () => subscription.unsubscribe();
   }, [router, queryClient]);
   useCartSync();
-  useScrollReveal();
 
   return (
     <QueryClientProvider client={queryClient}>

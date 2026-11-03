@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/delivery")({
   head: () => ({
@@ -21,6 +22,7 @@ const zones = [
 ];
 
 function Delivery() {
+  useScrollReveal();
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
       <h1 className="display-xl" data-reveal>Доставка</h1>
