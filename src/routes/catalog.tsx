@@ -45,14 +45,14 @@ function Catalog() {
   }, [products, sort, collection]);
 
   return (
-    <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
-      <header className="mb-20 grid gap-8 md:grid-cols-12 md:items-end" data-reveal>
-        <h1 className="display-xl md:col-span-7">Каталог</h1>
+    <div className="mx-auto max-w-[1400px] px-6 pb-24 pt-6 md:px-10 md:pt-8">
+      <header className="mb-8 grid gap-4 md:grid-cols-12 md:items-end" data-reveal>
+        <h1 className="display-lg md:col-span-7">Каталог</h1>
         <p className="text-lg leading-relaxed text-muted-foreground md:col-span-4 md:col-start-9">
           Букеты собираются вручную в день доставки. Состав может меняться по сезону — характер остаётся.
         </p>
       </header>
-      <div className="mb-14 flex flex-wrap gap-3 border-y py-5" data-reveal data-delay="1">
+      <div className="mb-6 flex flex-wrap gap-3 border-y py-3" data-reveal data-delay="1">
         {sorts.map((s) => (
           <button
             key={s.id}
@@ -65,7 +65,7 @@ function Catalog() {
         <span className="eyebrow ml-auto self-center text-muted-foreground">{list.length} композиций</span>
       </div>
       {collections.length > 0 && (
-        <div className="-mt-8 mb-14 flex flex-wrap gap-3" data-reveal data-delay="2">
+        <div className="mb-10 flex flex-wrap gap-3" data-reveal data-delay="2">
           {[{ id: null, title: "Все букеты" }, ...collections].map((c) => (
             <button key={c.id ?? "all"} onClick={() => setCollection(c.id)} aria-pressed={collection === c.id}
               className={`rounded-full border px-5 py-2 text-sm transition-colors ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
@@ -75,11 +75,11 @@ function Catalog() {
         </div>
       )}
       {isLoading ? (
-        <div className="grid gap-12 md:grid-cols-3">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
         </div>
       ) : list.length > 0 ? (
-        <div className="grid gap-x-10 gap-y-20 md:grid-cols-3">
+        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {list.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} />)}
         </div>
       ) : (
