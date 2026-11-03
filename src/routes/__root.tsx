@@ -1,3 +1,4 @@
+import { FloatingContact } from '@/components/site/HomeSections';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -125,6 +126,7 @@ function RootComponent() {
         <Outlet />
       </main>
       <Footer />
+      <FloatingContact />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

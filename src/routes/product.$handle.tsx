@@ -9,16 +9,27 @@ import { formatPrice } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 
 export const Route = createFileRoute("/product/$handle")({
-  head: () => ({
-    meta: [
-      { title: "Букет — Соцвет" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },
-      { property: "og:title", content: "Букет — Соцвет" },
-      { property: "og:description", content: "Авторский букет мастерской Соцвет с доставкой по Москве." },
-    ],
-  }),
+  loader: ({ context, params }) => context.queryClient.ensureQueryData(productQuery(params.handle)).catch(() => null),
+  head: ({ loaderData, params }) => {
+    const p = loaderData?.node;
+    const title = p ? `${p.title} — букет Соцвет` : "Букет — Соцвет";
+    const price = p?.variants.edges[0]?.node.price;
+    const desc = p ? `${(p.description || "Авторский букет").slice(0, 140)}${price ? ` · ${formatPrice(price.amount)}` : ""} · Доставка по Москве.` : "Авторский букет мастерской Соцвет с доставкой по Москве.";
+    const rawImg = p?.images.edges[0]?.node.url;
+    const img = rawImg ? `${rawImg}${rawImg.includes("?") ? "&" : "?"}width=1200&height=630&crop=center` : undefined;
+    const url = `https://socvet-bloom-bouquet-studio.lovable.app/product/${params.handle}`;
+    return {
+      meta: [
+        { title }, { name: "description", content: desc },
+        { property: "og:title", content: title }, { property: "og:description", content: desc },
+        { property: "og:type", content: "product" }, { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        ...(img ? [{ property: "og:image", content: img }, { name: "twitter:image", content: img }] : []),
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: p ? [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "Product", name: p.title, description: p.description, image: rawImg, brand: "Соцвет", offers: price ? { "@type": "Offer", price: price.amount, priceCurrency: "RUB", availability: "https://schema.org/InStock" } : undefined }) }] : [],
+    };
+  },
   component: ProductPage,
 });
 
