@@ -1,3 +1,4 @@
+import { buildDeliveryMessage } from './delivery-message';
 import { createServerFn } from '@tanstack/react-start';
 import { createClient } from '@supabase/supabase-js';
 import { deliveryRequestSchema, deliveryLinesSchema } from '@/lib/delivery-schema';
@@ -32,7 +33,7 @@ export const submitDeliveryRequest = createServerFn({ method: 'POST' })
     const id = crypto.randomUUID();
     const { error } = await client.from('florist_requests').insert({
       id, name: 'Заказ букета', phone: data.phone,
-      message: data.comment || 'Без комментария', consent: true,
+      message: buildDeliveryMessage(data), consent: true,
       delivery_address: data.address, desired_delivery_time: data.desiredTime, order_lines: lines,
     });
     if (error) throw new Error('Не удалось отправить заявку');

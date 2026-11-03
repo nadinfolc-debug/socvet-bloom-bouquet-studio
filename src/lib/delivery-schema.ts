@@ -5,6 +5,9 @@ export const deliveryRequestSchema = z.object({
   phone: z.string().trim().min(5, 'Укажите номер телефона').max(40).regex(/^\+?[\d\s()\-]+$/, 'Проверьте номер телефона'),
   desiredTime: z.string().trim().min(1, 'Укажите дату и желаемое время').max(100),
   comment: z.string().trim().max(2000).default(''),
+  recipientName: z.string().trim().max(100).default(''),
+  recipientPhone: z.string().trim().max(40).default(''),
+  cardText: z.string().trim().max(500).default(''),
   consent: z.literal(true, { errorMap: () => ({ message: 'Нужно согласие на обработку персональных данных' }) }),
   items: z.array(z.object({
     variantId: z.string().regex(/^gid:\/\/shopify\/ProductVariant\/\d+$/),
