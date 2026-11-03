@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CatalogRouteImport } from './routes/catalog'
 import { Route as DeliveryRouteImport } from './routes/delivery'
+import { Route as DemoRouteImport } from './routes/demo'
 import { Route as OfferRouteImport } from './routes/offer'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -49,6 +50,11 @@ const DeliveryRoute = DeliveryRouteImport.update({
   path: '/delivery',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OfferRoute = OfferRouteImport.update({
   id: '/offer',
   path: '/offer',
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
   '/delivery': typeof DeliveryRoute
+  '/demo': typeof DemoRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
   '/delivery': typeof DeliveryRoute
+  '/demo': typeof DemoRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/cart': typeof CartRoute
   '/catalog': typeof CatalogRoute
   '/delivery': typeof DeliveryRoute
+  '/demo': typeof DemoRoute
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/catalog'
     | '/delivery'
+    | '/demo'
     | '/offer'
     | '/privacy'
     | '/admin'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/catalog'
     | '/delivery'
+    | '/demo'
     | '/offer'
     | '/privacy'
     | '/admin'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
     | '/cart'
     | '/catalog'
     | '/delivery'
+    | '/demo'
     | '/offer'
     | '/privacy'
     | '/_authenticated/admin'
@@ -149,6 +161,7 @@ export interface RootRouteChildren {
   CartRoute: typeof CartRoute
   CatalogRoute: typeof CatalogRoute
   DeliveryRoute: typeof DeliveryRoute
+  DemoRoute: typeof DemoRoute
   OfferRoute: typeof OfferRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductHandleRoute: typeof ProductHandleRoute
@@ -196,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/delivery'
       fullPath: '/delivery'
       preLoaderRoute: typeof DeliveryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/offer': {
@@ -247,6 +267,7 @@ const rootRouteChildren: RootRouteChildren = {
   CartRoute: CartRoute,
   CatalogRoute: CatalogRoute,
   DeliveryRoute: DeliveryRoute,
+  DemoRoute: DemoRoute,
   OfferRoute: OfferRoute,
   PrivacyRoute: PrivacyRoute,
   ProductHandleRoute: ProductHandleRoute,
