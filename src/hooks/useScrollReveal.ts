@@ -14,9 +14,9 @@ export function useScrollReveal() {
     const reveal = () => {
       const limit = window.innerHeight * 0.92;
       document
-        .querySelectorAll("[data-reveal]:not(.is-revealed)")
+        .querySelectorAll("[data-reveal]:not([data-shown])")
         .forEach((el) => {
-          if (el.getBoundingClientRect().top < limit) el.classList.add("is-revealed");
+          if (el.getBoundingClientRect().top < limit) el.setAttribute("data-shown", "");
         });
     };
 
