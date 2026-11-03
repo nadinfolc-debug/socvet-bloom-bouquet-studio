@@ -14,6 +14,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DELIVERY_SLOTS } from '@/lib/delivery-message';
 import { CalendarIcon } from 'lucide-react';
+import { ru } from 'date-fns/locale';
 
 export function DeliveryRequestDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const items = useCartStore(state => state.items);
@@ -61,7 +62,7 @@ export function DeliveryRequestDialog({ open, onOpenChange }: { open: boolean; o
         <div className="space-y-2"><Label htmlFor="delivery-phone">Номер телефона</Label><Input id="delivery-phone" name="phone" type="tel" autoComplete="tel" required minLength={5} maxLength={40} disabled={busy} /></div>
         <div className="space-y-2"><Label>Дата доставки</Label>
           <Popover><PopoverTrigger asChild><Button type="button" variant="outline" className="w-full justify-start font-normal" disabled={busy}><CalendarIcon className="mr-2 h-4 w-4" />{dateLabel ?? 'Выберите дату'}</Button></PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start"><Calendar mode="single" selected={date} onSelect={setDate} disabled={d => d < today} initialFocus className="pointer-events-auto p-3" /></PopoverContent></Popover>
+            <PopoverContent className="w-auto p-0" align="start"><Calendar locale={ru} weekStartsOn={1} mode="single" selected={date} onSelect={setDate} disabled={d => d < today} initialFocus className="pointer-events-auto p-3" /></PopoverContent></Popover>
         </div>
         <div className="space-y-2"><Label>Интервал</Label>
           <div className="flex flex-wrap gap-2">{DELIVERY_SLOTS.map(s => <button type="button" key={s} disabled={busy} onClick={() => setSlot(s)} aria-pressed={slot === s} className={`rounded-full border px-3 py-1.5 text-sm transition ${slot === s ? 'border-primary bg-primary text-primary-foreground' : 'hover:border-primary'}`}>{s}</button>)}</div>
