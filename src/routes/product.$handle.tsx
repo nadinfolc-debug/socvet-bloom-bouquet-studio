@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { productQuery } from "@/lib/queries";
 import { formatPrice } from "@/lib/shopify";
+import { MessengerButtons } from "@/components/site/HomeSections";
 import { useCartStore } from "@/stores/cartStore";
 
 export const Route = createFileRoute("/product/$handle")({
@@ -112,6 +113,8 @@ function ProductPage() {
           <Button variant="petal" size="xl" className="mt-10 w-full" onClick={add} disabled={cartLoading || !variant?.availableForSale}>
             {cartLoading ? <Loader2 className="animate-spin" /> : variant?.availableForSale ? "Добавить в корзину" : "Нет в наличии"}
           </Button>
+          <p className="mt-6 text-sm text-muted-foreground">Есть вопросы по букету? Напишите флористу:</p>
+          <MessengerButtons className="mt-3" />
 
           <div className="mt-12 space-y-5 border-t pt-8 text-sm">
             <div className="grid grid-cols-[8rem_1fr] gap-4"><span className="eyebrow text-muted-foreground">Доставка</span><span>По Москве за 2–3 часа или ко времени</span></div>

@@ -11,3 +11,12 @@ describe('Delivery request before separate payment', () => {
   it('requires consent', () => { expect(deliveryRequestSchema.safeParse({ ...request, consent: false }).success).toBe(false); });
   it('requires selected bouquets', () => { expect(deliveryRequestSchema.safeParse({ ...request, items: [] }).success).toBe(false); });
 });
+import { buildDeliveryMessage } from '@/lib/delivery-message';
+describe('delivery message extras', () => {
+  it('includes recipient and card text', () => {
+    const m = buildDeliveryMessage({ recipientName: 'Оля', recipientPhone: '+7 900', cardText: 'Люблю' });
+    expect(m).toContain('Получатель: Оля, +7 900');
+    expect(m).toContain('Открытка: «Люблю»');
+  });
+  it('falls back when empty', () => expect(buildDeliveryMessage({})).toBe('Без комментария'));
+});
