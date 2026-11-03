@@ -7,6 +7,7 @@ import hero from "@/assets/hero.jpg";
 import atelier from "@/assets/atelier.jpg";
 import { HowWeWork, Reviews, MessengerButtons } from '@/components/site/HomeSections';
 import { RequestForm } from '@/components/site/RequestForm';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useScrollReveal();
   const { data: products, isLoading } = useQuery(productsQuery(6));
 
   return (
@@ -49,7 +51,7 @@ function Index() {
               </Button>
             </div>
           </div>
-          <div className="md:col-span-7">
+          <div className="md:col-span-7" data-reveal>
             <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full shadow-soft" />
           </div>
         </div>
@@ -57,7 +59,7 @@ function Index() {
 
       {/* Коллекция */}
       <section className="mx-auto max-w-[1400px] px-6 py-28 md:px-10 md:py-40">
-        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
           <h2 className="display-lg">Готовые<br /><em className="text-primary">букеты</em></h2>
           <Link to="/catalog" className="eyebrow border-b border-foreground pb-1 hover:border-primary hover:text-primary">
             Весь каталог →
@@ -82,7 +84,7 @@ function Index() {
       {/* Насыщенный блок: мастерская */}
       <section className="relative overflow-hidden bg-ink text-ink-foreground">
         <div className="mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-28 md:grid-cols-2 md:px-10 md:py-36">
-          <div>
+          <div data-reveal>
             <p className="eyebrow mb-6 opacity-60">Индивидуальный заказ</p>
             <h2 className="display-lg">Ваш особенный<br /><em className="text-blush">букет</em></h2>
             <p className="mt-8 max-w-md leading-relaxed opacity-75">
@@ -92,7 +94,7 @@ function Index() {
             <MessengerButtons className="mt-3" />
             <RequestForm />
           </div>
-          <img src={atelier} alt="Руки флориста собирают весенний букет" loading="lazy" width={1008} height={1312} className="w-full max-w-md justify-self-end" />
+          <img src={atelier} alt="Руки флориста собирают весенний букет" loading="lazy" width={1008} height={1312} className="w-full max-w-md justify-self-end" data-reveal data-delay="1" />
         </div>
       </section>
     </>

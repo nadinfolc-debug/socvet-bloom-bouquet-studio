@@ -93,9 +93,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className="js-reveal">
       <head>
         <HeadContent />
+        {/* Без JavaScript блоки остаются видимыми */}
+        <noscript>
+          <style>{`html.js-reveal [data-reveal]{opacity:1!important}`}</style>
+        </noscript>
       </head>
       <body>
         {children}

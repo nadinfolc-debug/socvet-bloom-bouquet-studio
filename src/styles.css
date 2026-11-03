@@ -131,3 +131,27 @@
 @utility animate-rise {
   animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
+
+/* Плавное появление блоков при прокрутке страницы */
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Атрибут data-shown ставит скрипт, когда блок вошёл в поле зрения */
+html.js-reveal [data-reveal]:not([data-shown]) {
+  opacity: 0;
+}
+
+html.js-reveal [data-reveal][data-shown] {
+  animation: reveal-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+html.js-reveal [data-reveal][data-delay="1"] { animation-delay: 110ms; }
+html.js-reveal [data-reveal][data-delay="2"] { animation-delay: 220ms; }
+html.js-reveal [data-reveal][data-delay="3"] { animation-delay: 330ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal [data-reveal] { opacity: 1; }
+  html.js-reveal [data-reveal][data-shown] { animation: none; }
+}

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -15,8 +16,9 @@ export const Route = createFileRoute("/privacy")({
 });
 
 function Privacy() {
+  useScrollReveal();
   return (
-    <article className="prose-legal mx-auto max-w-3xl px-6 pb-32 pt-12">
+    <article className="prose-legal mx-auto max-w-3xl px-6 pb-32 pt-12" data-reveal>
       <h1 className="display-lg mb-10">Политика конфиденциальности</h1>
       <p>Настоящая политика описывает, как Соцвет (далее — «Мастерская») собирает, использует и защищает персональные данные пользователей сайта в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».</p>
       <h2>1. Какие данные мы собираем</h2>

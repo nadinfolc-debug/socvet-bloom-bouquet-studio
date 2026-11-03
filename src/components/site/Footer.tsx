@@ -4,8 +4,8 @@ export function Footer() {
   return (
     <footer className="bg-ink text-ink-foreground">
       <div className="mx-auto max-w-[1400px] px-6 pb-10 pt-24 md:px-10">
-        <p className="display-lg max-w-4xl italic">Чувства обретают форму.</p>
-        <div className="mt-20 grid gap-10 text-sm md:grid-cols-4">
+        <p className="display-lg max-w-4xl italic" data-reveal>Чувства обретают форму.</p>
+        <div className="mt-20 grid gap-10 text-sm md:grid-cols-4" data-reveal data-delay="1">
           <div>
             <p className="eyebrow mb-4 opacity-60">Мастерская</p>
             <p className="leading-relaxed opacity-80">Москва<br />Ежедневно 9:00 — 21:00</p>
@@ -27,7 +27,7 @@ export function Footer() {
             <Link to="/admin" className="opacity-50 hover:opacity-100">Вход для команды</Link>
           </div>
         </div>
-        <div className="mt-20 flex flex-col justify-between gap-4 border-t border-ink-foreground/15 pt-6 text-xs opacity-60 md:flex-row">
+        <div className="mt-20 flex flex-col justify-between gap-4 border-t border-ink-foreground/15 pt-6 text-xs opacity-60 md:flex-row" data-reveal>
           <span>© {new Date().getFullYear()} Соцвет — созвучие цветов и оттенков</span>
           <span>Авторская флористика · Москва</span>
         </div>

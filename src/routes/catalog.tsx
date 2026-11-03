@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { ProductCard, EmptyProducts } from "@/components/site/ProductCard";
 import { productsQuery } from "@/lib/queries";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/catalog")({
   head: () => ({
@@ -25,6 +26,7 @@ const sorts = [
 ] as const;
 
 function Catalog() {
+  useScrollReveal();
   const { data: products, isLoading } = useQuery(productsQuery(100));
   const [sort, setSort] = useState<(typeof sorts)[number]["id"]>("new");
   const [collection, setCollection] = useState<string | null>(null);
@@ -44,13 +46,13 @@ function Catalog() {
 
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
-      <header className="mb-20 grid gap-8 md:grid-cols-12 md:items-end">
+      <header className="mb-20 grid gap-8 md:grid-cols-12 md:items-end" data-reveal>
         <h1 className="display-xl md:col-span-7">Каталог</h1>
         <p className="text-lg leading-relaxed text-muted-foreground md:col-span-4 md:col-start-9">
           Букеты собираются вручную в день доставки. Состав может меняться по сезону — характер остаётся.
         </p>
       </header>
-      <div className="mb-14 flex flex-wrap gap-3 border-y py-5">
+      <div className="mb-14 flex flex-wrap gap-3 border-y py-5" data-reveal data-delay="1">
         {sorts.map((s) => (
           <button
             key={s.id}
@@ -63,7 +65,7 @@ function Catalog() {
         <span className="eyebrow ml-auto self-center text-muted-foreground">{list.length} композиций</span>
       </div>
       {collections.length > 0 && (
-        <div className="-mt-8 mb-14 flex flex-wrap gap-3">
+        <div className="-mt-8 mb-14 flex flex-wrap gap-3" data-reveal data-delay="2">
           {[{ id: null, title: "Все букеты" }, ...collections].map((c) => (
             <button key={c.id ?? "all"} onClick={() => setCollection(c.id)} aria-pressed={collection === c.id}
               className={`rounded-full border px-5 py-2 text-sm transition-colors ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
