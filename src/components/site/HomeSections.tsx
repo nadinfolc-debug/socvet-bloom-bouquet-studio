@@ -40,7 +40,7 @@ export function Stats() {
 
 export function Florist() {
   return <section className="mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-28 md:grid-cols-12 md:px-10 md:py-36">
-    <img src={sculpture} alt="Флорист Соцвета за работой над букетом" loading="lazy" width={1024} height={1280} className="w-full shadow-soft md:col-span-5" data-reveal />
+    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="w-full shadow-soft md:col-span-5" data-reveal />
     <div className="md:col-span-6 md:col-start-7" data-reveal data-delay="1">
       <p className="eyebrow mb-6 text-primary">Флорист и основатель</p>
       <h2 className="display-lg">Надежда<br /><em className="text-primary">Фолц</em></h2>

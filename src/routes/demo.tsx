@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { Eye } from 'lucide-react';
 import { toast } from 'sonner';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -40,6 +41,7 @@ const rub = (n: number) => `${n.toLocaleString('ru-RU')} ₽`;
 const readOnly = () => toast('Это демо-режим: изменения не сохраняются');
 
 function Demo() {
+  useScrollReveal();
   const [q, setQ] = useState('');
   const [open, setOpen] = useState<Order | null>(null);
   const rows = orders.filter(o => `${o.name} ${o.address} ${o.items}`.toLowerCase().includes(q.toLowerCase()));
