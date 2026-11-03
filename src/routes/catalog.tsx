@@ -32,7 +32,7 @@ function Catalog() {
   const [collection, setCollection] = useState<string | null>(null);
   const collections = useMemo(() => {
     const map = new Map<string, string>();
-    for (const p of products ?? []) for (const c of p.node.collections?.nodes ?? []) map.set(c.id, c.title);
+    for (const p of products ?? []) for (const c of p.node.collections?.nodes ?? []) if (!/^home ?page$/i.test(c.title)) map.set(c.id, c.title);
     return [...map].map(([id, title]) => ({ id, title })).sort((a, b) => a.title.localeCompare(b.title, "ru"));
   }, [products]);
 
