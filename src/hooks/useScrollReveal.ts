@@ -4,49 +4,45 @@ import { useEffect } from "react";
  * Плавное появление блоков при прокрутке.
  *
  * Элементы с атрибутом [data-reveal] скрыты (см. styles.css) и поднимаются,
- * когда попадают в поле зрения. Контент, загруженный позже (каталог, карточка
- * товара), подхватывается автоматически.
+ * когда оказываются в поле зрения. Контент, загруженный позже (каталог,
+ * карточка товара), подхватывается автоматически.
  */
 export function useScrollReveal() {
   useEffect(() => {
     const root = document.documentElement;
 
-    if (!("IntersectionObserver" in window)) {
-      root.classList.remove("js-reveal");
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.classList.add("is-revealed");
-          observer.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
-    );
-
-    let scheduled = false;
-    const scan = () => {
-      scheduled = false;
+    const reveal = () => {
+      const limit = window.innerHeight * 0.92;
       document
         .querySelectorAll("[data-reveal]:not(.is-revealed)")
-        .forEach((el) => observer.observe(el));
+        .forEach((el) => {
+          if (el.getBoundingClientRect().top < limit) el.classList.add("is-revealed");
+        });
     };
 
-    scan();
-
-    const mutation = new MutationObserver(() => {
+    let scheduled = false;
+    const schedule = () => {
       if (scheduled) return;
       scheduled = true;
-      requestAnimationFrame(scan);
-    });
+      requestAnimationFrame(() => {
+        scheduled = false;
+        reveal();
+      });
+    };
+
+    reveal();
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+
+    const mutation = new MutationObserver(schedule);
     mutation.observe(document.body, { childList: true, subtree: true });
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
       mutation.disconnect();
+      root.classList.remove("js-reveal");
     };
   }, []);
 }
