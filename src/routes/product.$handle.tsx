@@ -69,7 +69,7 @@ function ProductPage() {
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-8 md:px-10">
       <Link to="/catalog" className="eyebrow text-muted-foreground hover:text-primary">← Каталог</Link>
       <div className="mt-10 grid gap-16 md:grid-cols-12">
-        <div className="md:col-span-7">
+        <div className="md:col-span-7" data-reveal>
           <div className="aspect-[4/5] overflow-hidden bg-milk arch shadow-soft">
             {images[imgIdx] && <img src={images[imgIdx].url} alt={images[imgIdx].altText ?? p.title} className="h-full w-full object-cover" />}
           </div>
@@ -83,7 +83,7 @@ function ProductPage() {
             </div>
           )}
         </div>
-        <div className="md:col-span-5 md:sticky md:top-28 md:self-start">
+        <div className="md:col-span-5 md:sticky md:top-28 md:self-start" data-reveal data-delay="1">
           <p className="eyebrow mb-6 text-primary">Авторская композиция</p>
           <h1 className="display-lg">{p.title}</h1>
           <p className="mt-6 font-display text-4xl text-primary">{variant && formatPrice(variant.price.amount, variant.price.currencyCode)}

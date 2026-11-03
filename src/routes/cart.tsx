@@ -29,15 +29,15 @@ function CartPage() {
 
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
-      <h1 className="display-xl mb-16">Корзина</h1>
+      <h1 className="display-xl mb-16" data-reveal>Корзина</h1>
       {items.length === 0 ? (
-        <div className="py-20 text-center">
+        <div className="py-20 text-center" data-reveal>
           <p className="font-display text-4xl italic text-muted-foreground">Чувства ещё не обрели форму</p>
           <Button variant="petal" size="xl" className="mt-10" asChild><Link to="/catalog">Выбрать букет</Link></Button>
         </div>
       ) : (
         <div className="grid gap-16 md:grid-cols-12">
-          <div className="divide-y border-y md:col-span-8">
+          <div className="divide-y border-y md:col-span-8" data-reveal>
             {items.map((item) => {
               const img = item.product.node.images.edges[0]?.node;
               return (
@@ -62,7 +62,7 @@ function CartPage() {
               );
             })}
           </div>
-          <aside className="md:col-span-4">
+          <aside className="md:col-span-4" data-reveal data-delay="1">
             <div className="bg-milk p-8 md:sticky md:top-28">
               <p className="eyebrow mb-6">Ваш заказ</p>
               <div className="flex items-baseline justify-between border-b pb-6">

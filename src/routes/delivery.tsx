@@ -23,13 +23,13 @@ const zones = [
 function Delivery() {
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-12 md:px-10">
-      <h1 className="display-xl">Доставка</h1>
-      <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
+      <h1 className="display-xl" data-reveal>Доставка</h1>
+      <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground" data-reveal data-delay="1">
         Мы бережно привозим букеты по Москве в фирменной упаковке с водой — чтобы композиция сохранила форму в пути.
       </p>
       <div className="mt-20 divide-y border-y">
-        {zones.map((z) => (
-          <div key={z.t} className="grid gap-4 py-10 md:grid-cols-12 md:items-baseline">
+        {zones.map((z, i) => (
+          <div key={z.t} className="grid gap-4 py-10 md:grid-cols-12 md:items-baseline" data-reveal data-delay={i}>
             <h2 className="text-4xl md:col-span-5">{z.t}</h2>
             <p className="text-muted-foreground md:col-span-4">{z.d}</p>
             <p className="font-display text-3xl text-primary md:col-span-3 md:text-right">{z.p}</p>
@@ -37,9 +37,9 @@ function Delivery() {
         ))}
       </div>
       <div className="mt-24 grid gap-16 md:grid-cols-3">
-        <div><p className="eyebrow mb-4 text-primary">Оплата</p><p className="leading-relaxed text-muted-foreground">Банковской картой онлайн при оформлении заказа.</p></div>
-        <div><p className="eyebrow mb-4 text-primary">Фото перед отправкой</p><p className="leading-relaxed text-muted-foreground">Пришлём фотографию готового букета, прежде чем курьер выедет.</p></div>
-        <div><p className="eyebrow mb-4 text-primary">Анонимно</p><p className="leading-relaxed text-muted-foreground">Можем не раскрывать отправителя — просто отметьте это в комментарии.</p></div>
+        <div data-reveal><p className="eyebrow mb-4 text-primary">Оплата</p><p className="leading-relaxed text-muted-foreground">Банковской картой онлайн при оформлении заказа.</p></div>
+        <div data-reveal data-delay="1"><p className="eyebrow mb-4 text-primary">Фото перед отправкой</p><p className="leading-relaxed text-muted-foreground">Пришлём фотографию готового букета, прежде чем курьер выедет.</p></div>
+        <div data-reveal data-delay="2"><p className="eyebrow mb-4 text-primary">Анонимно</p><p className="leading-relaxed text-muted-foreground">Можем не раскрывать отправителя — просто отметьте это в комментарии.</p></div>
       </div>
     </div>
   );

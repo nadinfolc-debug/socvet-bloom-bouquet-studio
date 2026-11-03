@@ -26,7 +26,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
   };
 
   return (
-    <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`}>
+    <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`} data-reveal data-delay={index % 3}>
       <div className="relative aspect-[4/5] overflow-hidden bg-milk arch">
         {img && (
           <img src={img.url} alt={img.altText ?? p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
