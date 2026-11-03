@@ -75,11 +75,11 @@ function Catalog() {
         </div>
       )}
       {isLoading ? (
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
         </div>
       ) : list.length > 0 ? (
-        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
           {list.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} />)}
         </div>
       ) : (
