@@ -9,8 +9,6 @@ import { useEffect } from "react";
  */
 export function useScrollReveal() {
   useEffect(() => {
-    const root = document.documentElement;
-
     const reveal = () => {
       const limit = window.innerHeight * 0.92;
       document
@@ -42,7 +40,6 @@ export function useScrollReveal() {
       window.removeEventListener("scroll", schedule);
       window.removeEventListener("resize", schedule);
       mutation.disconnect();
-      root.classList.remove("js-reveal");
     };
   }, []);
 }

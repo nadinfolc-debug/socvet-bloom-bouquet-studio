@@ -93,11 +93,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="ru" className="js-reveal">
       <head>
         <HeadContent />
-        {/* Блоки скрыты до появления в поле зрения; при выключенном JS остаются видимыми */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js-reveal')" }} />
+        {/* Без JavaScript блоки остаются видимыми */}
+        <noscript>
+          <style>{`html.js-reveal [data-reveal]{opacity:1}`}</style>
+        </noscript>
       </head>
       <body>
         {children}
