@@ -38,14 +38,16 @@ export function Reviews() {
 
 export function MessengerButtons({ className = '' }: { className?: string }) {
   return <div className={`flex flex-wrap gap-3 ${className}`}>
-    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-current px-5 py-2 text-sm hover:opacity-70">WhatsApp</a>
+    <a href={MAX_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-current px-5 py-2 text-sm hover:opacity-70">MAX</a>
     <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-current px-5 py-2 text-sm hover:opacity-70">Telegram</a>
+    <a href={VK_URL} target="_blank" rel="noopener noreferrer" className="rounded-full border border-current px-5 py-2 text-sm hover:opacity-70">ВКонтакте</a>
   </div>;
 }
 
 export function FloatingContact() {
   return <div className="fixed bottom-4 right-4 z-40 flex flex-col gap-2">
-    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в WhatsApp" className="rounded-full bg-primary px-4 py-3 text-sm text-primary-foreground shadow-soft hover:opacity-90">WhatsApp</a>
+    <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className="rounded-full bg-primary px-4 py-3 text-sm text-primary-foreground shadow-soft hover:opacity-90">MAX</a>
     <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className="rounded-full bg-foreground px-4 py-3 text-sm text-background shadow-soft hover:opacity-90">Telegram</a>
+    <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className="rounded-full bg-accent px-4 py-3 text-sm text-accent-foreground shadow-soft hover:opacity-90">ВКонтакте</a>
   </div>;
 }
