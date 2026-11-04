@@ -52,7 +52,7 @@ function Index() {
             </div>
           </div>
           <div className="md:col-span-6 lg:col-span-7" data-reveal>
-            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full h-[30svh] object-cover md:h-auto shadow-soft md:max-h-[calc(100svh-24rem)]" />
+            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="mx-auto aspect-[1600/1104] h-[28svh] w-auto max-w-full object-cover md:mx-0 md:w-full md:h-auto shadow-soft md:max-h-[calc(100svh-24rem)]" />
           </div>
         </div>
         <Stats />
@@ -72,7 +72,7 @@ function Index() {
           </div>
         ) : products && products.length > 0 ? (
           <>
-          <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-5 px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-x-6 md:gap-y-10 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden [&>*]:w-[72%] [&>*]:shrink-0 [&>*]:snap-start md:[&>*]:w-auto">
+          <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-5 px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-x-6 md:gap-y-10 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden [&>*]:w-full [&>*]:shrink-0 [&>*]:snap-start md:[&>*]:w-auto">
             {products.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} compact />)}
           </div>
         <p className="mt-3 text-xs text-muted-foreground md:hidden">Листайте вбок →</p>

@@ -39,7 +39,7 @@ export function Stats() {
 
 export function Florist() {
   return <section className="screen-block mx-auto grid max-w-[1400px] content-center items-center gap-5 px-5 py-6 md:grid-cols-12 md:gap-16 md:px-10 md:py-10">
-    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="h-[26svh] w-full object-cover shadow-soft md:h-auto md:col-span-5 md:max-h-fit-screen" data-reveal />
+    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="mx-auto aspect-[4/5] h-[30svh] w-auto max-w-full object-cover shadow-soft md:mx-0 md:w-full md:h-auto md:col-span-5 md:max-h-fit-screen" data-reveal />
     <div className="md:col-span-6 md:col-start-7" data-reveal data-delay="1">
       <p className="eyebrow mb-3 text-primary md:mb-5">Флорист и основатель</p>
       <h2 className="display-lg">Надежда<br /><em className="text-primary">Фолц</em></h2>
@@ -85,7 +85,7 @@ export function Reviews() {
         </div>
       </div>
       <div ref={track} className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth scroll-pl-6 px-6 pb-4 md:scroll-pl-10 [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden" data-reveal data-delay="1">
-        {reviews.map(([name, why, text]) => <figure key={name} className="flex w-[85%] shrink-0 snap-start flex-col bg-background p-6 shadow-soft sm:w-[60%] md:w-[calc((100%-3rem)/3)]">
+        {reviews.map(([name, why, text]) => <figure key={name} className="flex w-full shrink-0 snap-start flex-col bg-background p-6 shadow-soft sm:w-[60%] md:w-[calc((100%-3rem)/3)]">
           <p className="mb-3 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
           <blockquote className="font-display text-xl italic leading-snug">«{text}»</blockquote>
           <figcaption className="mt-auto pt-5 text-sm text-muted-foreground"><span className="text-foreground">{name}</span> · {why}</figcaption>
