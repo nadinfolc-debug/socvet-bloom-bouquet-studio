@@ -37,6 +37,9 @@ export function Header() {
               {n.label}
             </Link>
           ))}
+          <Link to="/demo" onClick={() => setOpen(false)} className="eyebrow mt-2 border-t pt-4 text-primary">
+            Демо панели управления →
+          </Link>
         </nav>
       )}
     </header>
