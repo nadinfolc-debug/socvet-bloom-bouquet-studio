@@ -30,29 +30,29 @@ function Index() {
   return (
     <>
       {/* Спокойный блок: герой */}
-      <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-6 pb-12 pt-4 md:px-10 md:py-6">
-        <div className="grid items-end gap-10 md:grid-cols-12">
+      <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-5 pb-10 pt-2 md:px-10 md:py-6">
+        <div className="grid items-end gap-6 md:grid-cols-12 md:gap-10">
           <div className="animate-rise md:col-span-6 lg:col-span-5">
             <p className="eyebrow mb-4 text-primary md:mb-5">Авторская флористика · Москва</p>
-            <h1 className="display-xl md:[font-size:clamp(3rem,min(8vw,11vh),8.5rem)]">
+            <h1 className="display-xl [font-size:clamp(2.6rem,12vw,3.6rem)] md:[font-size:clamp(3rem,min(8vw,11vh),8.5rem)]">
               Чувства<br />
               <em className="text-primary">обретают</em><br />
               форму
             </h1>
-            <p className="mt-5 max-w-sm text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-sm text-base leading-relaxed md:mt-5 md:text-lg text-muted-foreground">
               Выберите готовый букет или посоветуйтесь с флористом — и мы соберём ваш особенный.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button variant="petal" size="xl" className="md:px-7" asChild>
+            <div className="mt-5 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap md:mt-6">
+              <Button variant="petal" size="xl" className="h-12 px-3 text-[0.68rem] sm:h-14 sm:px-7 sm:text-xs" asChild>
                 <Link to="/catalog">Смотреть букеты</Link>
               </Button>
-              <Button variant="line" size="xl" className="md:px-7" asChild>
+              <Button variant="line" size="xl" className="h-12 px-3 text-[0.68rem] sm:h-14 sm:px-7 sm:text-xs" asChild>
                 <Link to="/delivery">Доставка</Link>
               </Button>
             </div>
           </div>
           <div className="md:col-span-6 lg:col-span-7" data-reveal>
-            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[70vh] object-cover shadow-soft md:max-h-[calc(100svh-24rem)]" />
+            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[38svh] object-cover shadow-soft md:max-h-[calc(100svh-24rem)]" />
           </div>
         </div>
         <Stats />
@@ -86,7 +86,7 @@ function Index() {
 
       {/* Насыщенный блок: мастерская */}
       <section className="screen-block relative flex flex-col justify-center overflow-hidden bg-ink text-ink-foreground">
-        <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-2 md:gap-16 md:px-10 md:py-10">
+        <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 px-5 py-10 md:grid-cols-2 md:gap-16 md:px-10 md:py-10">
           <div data-reveal>
             <p className="eyebrow mb-4 opacity-60">Индивидуальный заказ</p>
             <h2 className="display-lg">Ваш особенный<br /><em className="text-blush">букет</em></h2>
@@ -97,7 +97,7 @@ function Index() {
             <MessengerButtons className="mt-3" />
             <RequestForm />
           </div>
-          <img src={atelier} alt="Руки флориста собирают весенний букет" loading="lazy" width={1008} height={1312} className="w-full max-w-md justify-self-end max-h-[70vh] object-cover md:max-h-fit-screen" data-reveal data-delay="1" />
+          <img src={atelier} alt="Руки флориста собирают весенний букет" loading="lazy" width={1008} height={1312} className="w-full max-w-md justify-self-end max-h-[40svh] object-cover md:max-h-fit-screen" data-reveal data-delay="1" />
         </div>
       </section>
     </>
