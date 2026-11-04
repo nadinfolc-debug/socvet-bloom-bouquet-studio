@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MAX_URL, TELEGRAM_URL, VK_URL } from '@/lib/contacts';
 import sculpture from '@/assets/sculpture.jpg';
@@ -67,15 +68,32 @@ export function HowWeWork() {
 }
 
 export function Reviews() {
+  const track = useRef<HTMLDivElement>(null);
+  const scroll = (dir: 1 | -1) => {
+    const el = track.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: 'smooth' });
+  };
   return <section className="bg-secondary/40">
-    <div className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
-      <p className="eyebrow mb-6 text-primary">★★★★★ · 4,9 из 5 · Отзывы</p>
-      <h2 className="display-lg mb-10 md:mb-12" data-reveal>Говорят<br /><em className="text-primary">наши гости</em></h2>
-      <div className="grid gap-8 md:grid-cols-3">{reviews.map(([name, why, text], i) => <figure key={name} className="bg-background p-6 shadow-soft md:p-7" data-reveal data-delay={i % 3}>
-        <p className="mb-4 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
-        <blockquote className="font-display text-xl italic leading-snug md:text-2xl">«{text}»</blockquote>
-        <figcaption className="mt-6 text-sm text-muted-foreground"><span className="text-foreground">{name}</span> · {why}</figcaption>
-      </figure>)}</div>
+    <div className="mx-auto max-w-[1400px] px-6 py-12 md:px-10 md:py-14">
+      <div className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
+        <div>
+          <p className="eyebrow mb-4 text-primary">★★★★★ · 4,9 из 5 · Отзывы</p>
+          <h2 className="display-lg">Говорят <em className="text-primary">наши гости</em></h2>
+        </div>
+        <div className="hidden gap-3 md:flex">
+          <button type="button" onClick={() => scroll(-1)} aria-label="Предыдущие отзывы" className="grid h-12 w-12 place-items-center rounded-full border border-foreground/30 transition hover:border-primary hover:text-primary">←</button>
+          <button type="button" onClick={() => scroll(1)} aria-label="Следующие отзывы" className="grid h-12 w-12 place-items-center rounded-full border border-foreground/30 transition hover:border-primary hover:text-primary">→</button>
+        </div>
+      </div>
+      <div ref={track} className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-4 [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden" data-reveal data-delay="1">
+        {reviews.map(([name, why, text]) => <figure key={name} className="flex w-[85%] shrink-0 snap-start flex-col bg-background p-6 shadow-soft sm:w-[60%] md:w-[calc((100%-3rem)/3)]">
+          <p className="mb-3 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
+          <blockquote className="font-display text-xl italic leading-snug">«{text}»</blockquote>
+          <figcaption className="mt-auto pt-5 text-sm text-muted-foreground"><span className="text-foreground">{name}</span> · {why}</figcaption>
+        </figure>)}
+      </div>
+      <p className="mt-2 text-xs text-muted-foreground md:hidden">Листайте вбок →</p>
     </div>
   </section>;
 }
