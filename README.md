@@ -1,14 +1,46 @@
-# Welcome to your Lovable project
+# Socvet Bloom Bouquet Studio
+
+Собери сайт для Цветы как искусство Авторская флористика, необычные сочетания, выразительные букетыКрупные фотографии, скульптурные композиции, смелая типографика. Главная идея бренда: «Чувства обретают форму». Название бренда: СОЦВЕТСозвучие цветов и оттенковТёплый, выразительный.
+
+
+
+Элемент
+
+Решение
+
+Палитра
+
+Тёплый молочный, чернильный, глубокий бордовый
+
+Логотип
+
+Выразительная надпись «ИЗГИБ» с одной пластичной деталью в буквах
+
+Типографика
+
+Крупные художественные заголовки и простой, хорошо читаемый текст
+
+Изображения
+
+Авторские букеты со свободными силуэтами, боковой свет, заметные тени
+
+Композиция сайта
+
+Много воздуха, крупные фотографии, чередование спокойных и насыщенных блоков
+
+ Москва - (распиши структуру подробнее: не забудь - основная панель, каталог, карточка товара, корзина, хедер, футер, доставка, политика конфиденциальности и оферта) + небольшую админку, куда будут уходить заявки и можно будет добавлять и редактировать товары. Стиль легкий, весенний, романтичный, при этом уйди от стандартного шаблона интернет-магазина.
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://socvet-bloom-bouquet-studio.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/91fc076b-a658-48a5-86f3-b5598c6380df).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +52,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
