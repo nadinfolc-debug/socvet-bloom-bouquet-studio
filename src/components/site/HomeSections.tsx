@@ -40,18 +40,18 @@ export function Stats() {
 }
 
 export function Florist() {
-  return <section className="mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-16 md:grid-cols-12 md:px-10 md:py-20">
-    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="w-full max-h-[70vh] object-cover shadow-soft md:col-span-5 md:max-h-[78vh]" data-reveal />
+  return <section className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-12 md:gap-16 md:px-10 md:py-14">
+    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="w-full max-h-[70vh] object-cover shadow-soft md:col-span-5 md:max-h-fit-screen" data-reveal />
     <div className="md:col-span-6 md:col-start-7" data-reveal data-delay="1">
-      <p className="eyebrow mb-6 text-primary">Флорист и основатель</p>
+      <p className="eyebrow mb-5 text-primary">Флорист и основатель</p>
       <h2 className="display-lg">Надежда<br /><em className="text-primary">Фолц</em></h2>
-      <p className="mt-8 max-w-lg text-lg leading-relaxed text-muted-foreground">
+      <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
         Я собираю букеты так, как пишут письма: с паузами, акцентами и воздухом между строк. Каждая композиция — свободный силуэт, живой свет и один смелый цвет.
       </p>
-      <p className="mt-6 max-w-lg leading-relaxed text-muted-foreground">
+      <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
         Училась в Москве и Амстердаме, работаю с сезонными цветами от проверенных поставщиков и небольших подмосковных ферм.
       </p>
-      <p className="mt-10 font-display text-3xl italic">«Чувства обретают форму»</p>
+      <p className="mt-8 font-display text-3xl italic">«Чувства обретают форму»</p>
     </div>
   </section>;
 }
