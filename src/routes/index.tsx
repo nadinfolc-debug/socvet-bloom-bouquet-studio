@@ -71,10 +71,12 @@ function Index() {
             {[0, 1, 2, 3].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
           </div>
         ) : products && products.length > 0 ? (
+          <>
           <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-pl-5 px-5 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-4 md:gap-x-6 md:gap-y-10 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden [&>*]:w-[72%] [&>*]:shrink-0 [&>*]:snap-start md:[&>*]:w-auto">
             {products.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} compact />)}
           </div>
         <p className="mt-3 text-xs text-muted-foreground md:hidden">Листайте вбок →</p>
+          </>
         ) : (
           <EmptyProducts />
         )}
