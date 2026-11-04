@@ -36,6 +36,13 @@
       "when": 1792956048982,
       "tag": "0004_order_statuses_notes_history",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793792789665,
+      "tag": "0005_native_catalog",
+      "breakpoints": true
     }
   ]
 }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Minus, Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
-import { formatPrice } from "@/lib/shopify";
+import { formatPrice } from "@/lib/catalog";
 import { DeliveryRequestDialog } from '@/components/site/DeliveryRequestDialog';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   useScrollReveal();
   const [deliveryOpen, setDeliveryOpen] = useState(false);
-  const { items, isLoading, isSyncing, updateQuantity, removeItem } = useCartStore();
+  const { items, isLoading, updateQuantity, removeItem } = useCartStore();
   const total = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
   const currency = items[0]?.price.currencyCode ?? "RUB";
 
@@ -72,8 +72,8 @@ function CartPage() {
                 <span className="font-display text-4xl">{formatPrice(total, currency)}</span>
               </div>
                <p className="mt-6 text-sm text-muted-foreground">Оплата — отдельно после подтверждения заказа.</p>
-               <Button variant="petal" size="xl" className="mt-8 w-full" onClick={() => setDeliveryOpen(true)} disabled={isLoading || isSyncing}>
-                {isLoading || isSyncing ? <Loader2 className="animate-spin" /> : "Оформить заказ"}
+               <Button variant="petal" size="xl" className="mt-8 w-full" onClick={() => setDeliveryOpen(true)} disabled={isLoading}>
+                {isLoading ? <Loader2 className="animate-spin" /> : "Оформить заказ"}
               </Button>
               <p className="mt-4 text-xs text-muted-foreground">
                 Оформляя заказ, вы принимаете <Link to="/offer" className="underline">оферту</Link> и <Link to="/privacy" className="underline">политику конфиденциальности</Link>.

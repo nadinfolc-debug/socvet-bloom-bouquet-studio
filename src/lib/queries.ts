@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { fetchProduct, fetchProducts } from "./shopify";
+import { fetchProduct, fetchProducts } from "./catalog";
 
 export const productsQuery = (first = 50) =>
   queryOptions({ queryKey: ["products", first], queryFn: () => fetchProducts(first) });

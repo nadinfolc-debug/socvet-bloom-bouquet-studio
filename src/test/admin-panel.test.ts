@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { bouquetSchema } from '@/lib/bouquet-schema';
 import { statuses, activeStatuses, isClosed } from '@/lib/requests';
 
-const base = { title: 'Утро', visible: true, variants: [{ name: '', price: 4500 }], images: [{ kind: 'existing', id: 'gid://shopify/MediaImage/1' }] };
+const base = { title: 'Утро', visible: true, variants: [{ name: '', price: 4500 }], images: [{ kind: 'existing', id: '11111111-1111-4111-8111-111111111111' }] };
 
 describe('Order statuses', () => {
   it('has the seven agreed statuses', () => {

@@ -1,21 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, X, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
-import { formatPrice } from "@/lib/shopify";
+import { formatPrice } from "@/lib/catalog";
 import { DeliveryRequestDialog } from '@/components/site/DeliveryRequestDialog';
 
 export function CartDrawer() {
   const [isOpen, setIsOpen] = useState(false);
   const [deliveryOpen, setDeliveryOpen] = useState(false);
-  const { items, isLoading, isSyncing, syncCart, updateQuantity, removeItem } = useCartStore();
+  const { items, isLoading, updateQuantity, removeItem } = useCartStore();
   const totalItems = items.reduce((s, i) => s + i.quantity, 0);
   const totalPrice = items.reduce((s, i) => s + parseFloat(i.price.amount) * i.quantity, 0);
   const currency = items[0]?.price.currencyCode ?? "RUB";
-
-  useEffect(() => { if (isOpen) void syncCart(); }, [isOpen, syncCart]);
 
   const handleCheckout = () => {
     setIsOpen(false);
@@ -76,8 +74,8 @@ export function CartDrawer() {
                   <span className="eyebrow">Итого</span>
                   <span className="font-display text-3xl">{formatPrice(totalPrice, currency)}</span>
                 </div>
-                <Button variant="petal" size="xl" className="w-full" onClick={handleCheckout} disabled={isLoading || isSyncing}>
-                  {isLoading || isSyncing ? <Loader2 className="animate-spin" /> : "Оформить заказ"}
+                <Button variant="petal" size="xl" className="w-full" onClick={handleCheckout} disabled={isLoading}>
+                  {isLoading ? <Loader2 className="animate-spin" /> : "Оформить заказ"}
                 </Button>
                 <Link to="/cart" onClick={() => setIsOpen(false)} className="eyebrow block text-center text-muted-foreground hover:text-primary">
                   Открыть корзину целиком

@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/compone
 import { deliveryRequestSchema } from '@/lib/delivery-schema';
 import { submitDeliveryRequest } from '@/lib/delivery.functions';
 import { useCartStore } from '@/stores/cartStore';
-import { formatPrice } from '@/lib/shopify';
+import { formatPrice } from '@/lib/catalog';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { DELIVERY_SLOTS } from '@/lib/delivery-message';

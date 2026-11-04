@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { productQuery } from "@/lib/queries";
-import { formatPrice } from "@/lib/shopify";
+import { formatPrice } from "@/lib/catalog";
 import { MessengerButtons } from "@/components/site/HomeSections";
 import { useCartStore } from "@/stores/cartStore";
 import { useScrollReveal } from "@/hooks/useScrollReveal";

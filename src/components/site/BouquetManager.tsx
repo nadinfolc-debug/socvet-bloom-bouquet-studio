@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { listBouquets, saveBouquet, deleteBouquet, setBouquetVisible, duplicateBouquet, listCollections, saveCollection, deleteCollection, type AdminBouquet, type AdminCollection } from '@/lib/bouquets.functions';
 import { bouquetSchema } from '@/lib/bouquet-schema';
-import { formatPrice } from '@/lib/shopify';
+import { formatPrice } from '@/lib/catalog';
 
 type Photo = { kind: 'existing'; id: string; url: string } | { kind: 'new'; data: string; mime: 'image/jpeg'; url: string; key: string };
 

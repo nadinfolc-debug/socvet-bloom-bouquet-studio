@@ -1,3 +1,5 @@
+import type { StoredBouquet, StoredCollection } from '@/lib/catalog-model'
+
 export type Json =
   | string
   | number
@@ -14,6 +16,18 @@ export type Database = {
   }
   public: {
     Tables: {
+      bouquets: {
+        Row: StoredBouquet
+        Insert: StoredBouquet
+        Update: Partial<StoredBouquet>
+        Relationships: []
+      }
+      bouquet_collections: {
+        Row: StoredCollection
+        Insert: StoredCollection
+        Update: Partial<StoredCollection>
+        Relationships: []
+      }
       florist_requests: {
         Row: {
           admin_note: string | null

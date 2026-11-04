@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useCartStore } from "@/stores/cartStore";
-import { formatPrice, type ShopifyProduct } from "@/lib/shopify";
+import { formatPrice, type CatalogProduct } from "@/lib/catalog";
 
-export function ProductCard({ product, index = 0, compact = false }: { product: ShopifyProduct; index?: number; compact?: boolean }) {
+export function ProductCard({ product, index = 0, compact = false }: { product: CatalogProduct; index?: number; compact?: boolean }) {
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
   const p = product.node;

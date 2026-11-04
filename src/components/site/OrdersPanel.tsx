@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { supabase } from '@/integrations/supabase/client';
 import { requestsQuery, historyQuery, statuses, statusTone, activeStatuses, type RequestStatus } from '@/lib/requests';
 import { deliveryLinesSchema } from '@/lib/delivery-schema';
-import { formatPrice } from '@/lib/shopify';
+import { formatPrice } from '@/lib/catalog';
 
 type Row = NonNullable<Awaited<ReturnType<typeof requestsQuery.queryFn>>>[number];
 const periods = { all: 'За всё время', today: 'Сегодня', week: '7 дней', month: '30 дней' } as const;

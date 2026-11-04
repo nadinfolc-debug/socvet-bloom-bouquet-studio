@@ -1,3 +1,4 @@
+import { ConsultantChat } from '@/components/site/ConsultantChat';
 import { FloatingContact } from '@/components/site/HomeSections';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
@@ -5,6 +6,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -16,7 +18,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
-import { useCartSync } from "@/hooks/useCartSync";
 import { supabase } from '@/integrations/supabase/client';
 
 function NotFoundComponent() {
@@ -112,6 +113,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  const pathname = useRouterState({ select: state => state.location.pathname });
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(event => {
       if (!['SIGNED_IN', 'SIGNED_OUT', 'USER_UPDATED'].includes(event)) return;
@@ -121,13 +123,15 @@ function RootComponent() {
     });
     return () => subscription.unsubscribe();
   }, [router, queryClient]);
-  useCartSync();
 
   return (
     <QueryClientProvider client={queryClient}>
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-primary-foreground">Перейти к содержанию</a>
       <Header />
-      <div className="mx-auto flex w-full max-w-[1400px] justify-end px-3 py-3 md:px-10"><FloatingContact /></div>
+      <div className="mx-auto flex w-full max-w-[1400px] flex-wrap items-start justify-between gap-3 px-3 py-3 md:px-10">
+      {import.meta.env["VITE_CONSULTANT_ENABLED"] === "true" && !["/admin", "/auth", "/demo"].some(path => pathname === path || pathname.startsWith(`${path}/`)) && <ConsultantChat />}
+        <FloatingContact />
+      </div>
       <main id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
