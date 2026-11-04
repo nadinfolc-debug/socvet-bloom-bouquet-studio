@@ -1,4 +1,5 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { MessageCircle, X } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MAX_URL, TELEGRAM_URL, VK_URL } from '@/lib/contacts';
 import sculpture from '@/assets/sculpture.jpg';
@@ -117,9 +118,16 @@ export function MessengerButtons({ className = '' }: { className?: string }) {
 }
 
 export function FloatingContact() {
-  return <div className="fixed bottom-2 right-2 z-40 flex flex-row items-end gap-1 md:flex-col md:gap-1.5 md:bottom-4 md:right-4">
-    <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className="rounded-full bg-primary px-2.5 py-1 text-[0.7rem] md:px-3 md:py-1.5 md:text-xs xl:px-4 xl:py-2.5 xl:text-sm text-primary-foreground shadow-soft hover:opacity-90">MAX</a>
-    <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className="rounded-full bg-foreground px-2.5 py-1 text-[0.7rem] md:px-3 md:py-1.5 md:text-xs xl:px-4 xl:py-2.5 xl:text-sm text-background shadow-soft hover:opacity-90">Telegram</a>
-    <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className="rounded-full bg-accent px-2.5 py-1 text-[0.7rem] md:px-3 md:py-1.5 md:text-xs xl:px-4 xl:py-2.5 xl:text-sm text-accent-foreground shadow-soft hover:opacity-90">ВКонтакте</a>
+  const [open, setOpen] = useState(false);
+  const pill = "rounded-full px-4 py-2 text-sm shadow-soft hover:opacity-90 md:px-3 md:py-1.5 md:text-xs xl:px-4 xl:py-2.5 xl:text-sm";
+  return <div className="fixed bottom-3 right-3 z-40 flex flex-col items-end gap-2 md:bottom-4 md:right-4 md:gap-1.5">
+    <div className={`${open ? "flex" : "hidden"} flex-col items-end gap-2 md:flex md:gap-1.5`}>
+      <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className={`${pill} bg-primary text-primary-foreground`}>MAX</a>
+      <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className={`${pill} bg-foreground text-background`}>Telegram</a>
+      <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className={`${pill} bg-accent text-accent-foreground`}>ВКонтакте</a>
+    </div>
+    <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={open ? "Скрыть мессенджеры" : "Написать флористу"} className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft md:hidden">
+      {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
+    </button>
   </div>;
 }
