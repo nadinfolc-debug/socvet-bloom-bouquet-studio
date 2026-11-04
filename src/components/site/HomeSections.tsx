@@ -86,7 +86,7 @@ export function Reviews() {
           <button type="button" onClick={() => scroll(1)} aria-label="Следующие отзывы" className="grid h-12 w-12 place-items-center rounded-full border border-foreground/30 transition hover:border-primary hover:text-primary">→</button>
         </div>
       </div>
-      <div ref={track} className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth px-6 pb-4 [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden" data-reveal data-delay="1">
+      <div ref={track} className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth scroll-pl-6 px-6 pb-4 md:scroll-pl-10 [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden" data-reveal data-delay="1">
         {reviews.map(([name, why, text]) => <figure key={name} className="flex w-[85%] shrink-0 snap-start flex-col bg-background p-6 shadow-soft sm:w-[60%] md:w-[calc((100%-3rem)/3)]">
           <p className="mb-3 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
           <blockquote className="font-display text-xl italic leading-snug">«{text}»</blockquote>
