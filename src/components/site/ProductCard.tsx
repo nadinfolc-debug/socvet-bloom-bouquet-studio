@@ -27,7 +27,7 @@ export function ProductCard({ product, index = 0, compact = false }: { product: 
 
   return (
     <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`} data-reveal data-delay={index % 3}>
-      <div className={`relative mx-auto aspect-[4/5] w-full overflow-hidden ${compact ? "max-h-[44svh] md:max-h-[calc(100svh-28rem)]" : "max-h-[60vh]"} bg-milk arch`}>
+      <div className={`relative mx-auto aspect-[4/5] max-w-full overflow-hidden ${compact ? "h-[38svh] md:h-auto md:w-full md:max-h-[calc(100svh-28rem)]" : "h-[50svh] md:h-auto md:w-full md:max-h-[60vh]"} bg-milk arch`}>
         {img && (
           <img src={img.url} alt={img.altText ?? p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
         )}
@@ -48,7 +48,7 @@ export function ProductCard({ product, index = 0, compact = false }: { product: 
           )}
         </span>
       </div>
-      {p.description && <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.description}</p>}
+      {p.description && <p className="mt-2 text-sm md:line-clamp-2 text-muted-foreground">{p.description}</p>}
     </Link>
   );
 }

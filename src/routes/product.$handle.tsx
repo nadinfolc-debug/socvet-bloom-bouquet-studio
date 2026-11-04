@@ -70,7 +70,7 @@ function ProductPage() {
   return (
     <div className="mx-auto max-w-[1400px] px-6 pb-32 pt-8 md:px-10">
       <Link to="/catalog" className="eyebrow text-muted-foreground hover:text-primary">← Каталог</Link>
-      <div className="mt-10 grid gap-16 md:grid-cols-12">
+      <div className="mt-5 grid gap-8 md:mt-10 md:grid-cols-12 md:gap-16">
         <div className="md:col-span-7" data-reveal>
           <div className="aspect-[4/5] overflow-hidden bg-milk arch shadow-soft">
             {images[imgIdx] && <img src={images[imgIdx].url} alt={images[imgIdx].altText ?? p.title} className="h-full w-full object-cover" />}

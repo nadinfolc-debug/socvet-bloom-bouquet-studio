@@ -57,7 +57,7 @@ function Catalog() {
           <button
             key={s.id}
             onClick={() => setSort(s.id)}
-            className={`eyebrow rounded-full px-5 py-2 transition-colors ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
+            className={`eyebrow rounded-full px-3 py-1.5 md:px-5 md:py-2 transition-colors ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
           >
             {s.label}
           </button>
