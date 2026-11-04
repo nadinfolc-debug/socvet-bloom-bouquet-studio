@@ -127,11 +127,11 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-primary-foreground">Перейти к содержанию</a>
       <Header />
+      <div className="mx-auto flex w-full max-w-[1400px] justify-end px-3 py-3 md:px-10"><FloatingContact /></div>
       <main id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
       <Footer />
-      <FloatingContact />
       <Toaster position="top-center" />
     </QueryClientProvider>
   );

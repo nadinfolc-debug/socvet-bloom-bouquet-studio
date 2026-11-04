@@ -48,7 +48,7 @@ function Demo() {
   const count = (s: RequestStatus[]) => orders.filter(o => s.includes(o.status)).length;
   return <section className="mx-auto max-w-[1200px] px-6 py-14 md:px-10">
     <div className="mb-8 flex flex-wrap items-center gap-3 border border-primary/30 bg-primary/5 px-5 py-3 text-sm"><Eye className="size-4 text-primary" />Демо-режим: только просмотр, данные вымышлены. <Link to="/" className="ml-auto underline">На сайт</Link></div>
-    <p className="eyebrow mb-3 text-primary">Соцвет · Для команды</p><h1 className="mb-10 font-display text-6xl">Мастерская</h1>
+    <p className="eyebrow mb-3 text-primary">Соцвет · Для команды</p><h1 className="mb-10 display-lg">Мастерская</h1>
     <Tabs defaultValue="orders">
       <TabsList className="mb-8"><TabsTrigger value="orders">Заказы · {count(['new'])} новых</TabsTrigger><TabsTrigger value="products">Ассортимент</TabsTrigger></TabsList>
       <TabsContent value="orders">
@@ -58,7 +58,7 @@ function Demo() {
         </div>
         <Input placeholder="Поиск по имени, адресу, букету" value={q} onChange={e => setQ(e.target.value)} className="mb-6 max-w-sm" />
         <div className="divide-y border">
-          {rows.map(o => <button key={o.id} onClick={() => setOpen(open?.id === o.id ? null : o)} className="grid w-full gap-2 p-5 text-left hover:bg-muted/50 md:grid-cols-[90px_1fr_1fr_120px_160px] md:items-center">
+          {rows.map(o => <button key={o.id} onClick={() => setOpen(open?.id === o.id ? null : o)} className="grid w-full gap-2 p-5 text-left hover:bg-muted/50 xl:grid-cols-[90px_minmax(0,1fr)_minmax(0,1fr)_120px_160px] md:items-center">
             <span className="text-sm text-muted-foreground">{o.id}</span>
             <span><span className="block">{o.name}</span><span className="text-sm text-muted-foreground">{o.items}</span></span>
             <span className="text-sm">{o.when}, {o.slot}<span className="block text-muted-foreground">{o.address}</span></span>
@@ -73,11 +73,11 @@ function Demo() {
       </TabsContent>
       <TabsContent value="products">
         <div className="mb-6 flex justify-end"><Button variant="petal" onClick={readOnly}>Добавить букет</Button></div>
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {bouquets.map(b => <div key={b.title} className="border">
-            <img src={b.img} alt={b.title} loading="lazy" className={`aspect-[4/5] w-full object-cover ${b.visible ? '' : 'opacity-40'}`} />
+            <img src={b.img} alt={b.title} loading="lazy" className={`aspect-[4/5] w-full object-contain ${b.visible ? '' : 'opacity-40'}`} />
             <div className="p-4"><p className="font-display text-2xl">{b.title}</p><p className="text-sm text-muted-foreground">{rub(b.price)} · {b.visible ? 'на сайте' : 'скрыт'}</p>
-              <div className="mt-3 flex gap-2"><Button size="sm" variant="outline" onClick={readOnly}>Изменить</Button><Button size="sm" variant="ghost" onClick={readOnly}>{b.visible ? 'Скрыть' : 'Показать'}</Button></div></div>
+              <div className="mt-3 flex flex-wrap gap-2"><Button size="sm" variant="outline" onClick={readOnly}>Изменить</Button><Button size="sm" variant="ghost" onClick={readOnly}>{b.visible ? 'Скрыть' : 'Показать'}</Button></div></div>
           </div>)}
         </div>
       </TabsContent>

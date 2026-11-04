@@ -4,9 +4,9 @@ import { ADDRESS, EMAIL, HOURS, PHONE, PHONE_HREF } from "@/lib/contacts";
 export function Footer() {
   return (
     <footer className="bg-ink text-ink-foreground">
-      <div className="mx-auto max-w-[1400px] px-6 pb-10 pt-24 md:px-10">
+      <div className="mx-auto max-w-[1400px] px-6 pb-24 pt-16 md:px-10">
         <p className="display-lg max-w-4xl italic" data-reveal>Чувства обретают форму.</p>
-        <div className="mt-20 grid gap-10 text-sm md:grid-cols-4" data-reveal data-delay="1">
+        <div className="mt-20 grid gap-10 text-sm sm:grid-cols-2 lg:grid-cols-4" data-reveal data-delay="1">
           <div>
             <p className="eyebrow mb-4 opacity-60">Мастерская</p>
             <p className="leading-relaxed opacity-80">{ADDRESS}<br />{HOURS}</p>

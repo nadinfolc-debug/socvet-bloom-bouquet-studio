@@ -78,7 +78,7 @@ function Catalog() {
       )}
       {isLoading ? (
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4" aria-busy="true" aria-label="Загрузка букетов">
-          {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
+          {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted rounded-sm" />)}
         </div>
       ) : list.length > 0 ? (
         <ul className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4" aria-label="Букеты">

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { MAX_URL, TELEGRAM_URL, VK_URL } from '@/lib/contacts';
@@ -30,7 +30,7 @@ const faq = [
 ] as const;
 
 export function Stats() {
-  return <div className="mt-10 hidden grid-cols-2 gap-y-6 border-t md:grid border-foreground/10 pt-6 md:mt-6 md:grid-cols-4 md:pt-5">
+  return <div className="mt-6 grid grid-cols-2 gap-y-6 border-t md:grid border-foreground/10 pt-6 md:mt-6 md:grid-cols-4 md:pt-5">
       {stats.map(([n, t], i) => <div key={n} data-reveal data-delay={i % 4}>
         <p className="font-display text-4xl italic text-primary md:text-5xl">{n}</p>
         <p className="mt-1 max-w-[14rem] text-sm text-muted-foreground">{t}</p>
@@ -40,14 +40,14 @@ export function Stats() {
 
 export function Florist() {
   return <section className="screen-block mx-auto grid max-w-[1400px] content-center items-center gap-5 px-5 py-6 md:grid-cols-12 md:gap-16 md:px-10 md:py-10">
-    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="mx-auto aspect-[4/5] h-[30svh] w-auto max-w-full object-cover shadow-soft md:mx-0 md:w-full md:h-auto md:col-span-5 md:max-h-fit-screen" data-reveal />
+    <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="editorial-photo mx-auto shadow-soft md:col-span-5" data-reveal />
     <div className="md:col-span-6 md:col-start-7" data-reveal data-delay="1">
       <p className="eyebrow mb-3 text-primary md:mb-5">Флорист и основатель</p>
       <h2 className="display-lg">Надежда<br /><em className="text-primary">Фолц</em></h2>
       <p className="mt-4 max-w-lg text-[0.95rem] leading-relaxed md:mt-6 md:text-lg text-muted-foreground">
         Я собираю букеты так, как пишут письма: с паузами, акцентами и воздухом между строк. Каждая композиция — свободный силуэт, живой свет и один смелый цвет.
       </p>
-      <p className="mt-4 hidden max-w-lg leading-relaxed text-muted-foreground md:block">
+      <p className="mt-4 max-w-lg leading-relaxed text-muted-foreground">
         Училась в Москве и Амстердаме, работаю с сезонными цветами от проверенных поставщиков и небольших подмосковных ферм.
       </p>
       <p className="mt-4 font-display text-2xl italic md:mt-8 md:text-3xl">«Чувства обретают форму»</p>
@@ -67,12 +67,6 @@ export function HowWeWork() {
 }
 
 export function Reviews() {
-  const track = useRef<HTMLDivElement>(null);
-  const scroll = (dir: 1 | -1) => {
-    const el = track.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: 'smooth' });
-  };
   return <section className="screen-block flex flex-col justify-center bg-secondary/40">
     <div className="mx-auto w-full max-w-[1400px] px-6 py-6 md:px-10 md:py-10">
       <div className="mb-5 md:mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
@@ -80,19 +74,14 @@ export function Reviews() {
           <p className="eyebrow mb-4 text-primary">★★★★★ · 4,9 из 5 · Отзывы</p>
           <h2 className="display-lg">Говорят <em className="text-primary">наши гости</em></h2>
         </div>
-        <div className="hidden gap-3 md:flex">
-          <button type="button" onClick={() => scroll(-1)} aria-label="Предыдущие отзывы" className="grid h-12 w-12 place-items-center rounded-full border border-foreground/30 transition hover:border-primary hover:text-primary">←</button>
-          <button type="button" onClick={() => scroll(1)} aria-label="Следующие отзывы" className="grid h-12 w-12 place-items-center rounded-full border border-foreground/30 transition hover:border-primary hover:text-primary">→</button>
-        </div>
       </div>
-      <div ref={track} className="-mx-6 flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth scroll-pl-6 px-6 pb-4 md:scroll-pl-10 [scrollbar-width:none] md:-mx-10 md:px-10 [&::-webkit-scrollbar]:hidden" data-reveal data-delay="1">
-        {reviews.map(([name, why, text]) => <figure key={name} className="flex w-full shrink-0 snap-start flex-col bg-background p-6 shadow-soft sm:w-[60%] md:w-[calc((100%-3rem)/3)]">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-delay="1">
+        {reviews.map(([name, why, text]) => <figure key={name} className="flex min-w-0 flex-col bg-background p-6 shadow-soft">
           <p className="mb-3 text-sm tracking-widest text-primary" aria-label="5 из 5">★★★★★</p>
           <blockquote className="font-display text-xl italic leading-snug">«{text}»</blockquote>
           <figcaption className="mt-auto pt-5 text-sm text-muted-foreground"><span className="text-foreground">{name}</span> · {why}</figcaption>
         </figure>)}
       </div>
-      <p className="mt-2 text-xs text-muted-foreground md:hidden">Листайте вбок →</p>
     </div>
   </section>;
 }
@@ -120,13 +109,13 @@ export function MessengerButtons({ className = '' }: { className?: string }) {
 export function FloatingContact() {
   const [open, setOpen] = useState(false);
   const pill = "rounded-full px-4 py-2 text-sm shadow-soft hover:opacity-90 md:px-3 md:py-1.5 md:text-xs xl:px-4 xl:py-2.5 xl:text-sm";
-  return <div className="fixed bottom-3 right-3 z-40 flex flex-col items-end gap-2 md:bottom-4 md:right-4 md:gap-1.5">
-    <div className={`${open ? "flex" : "hidden"} flex-col items-end gap-2 md:flex md:gap-1.5`}>
+  return <div className="ml-auto flex flex-col items-end gap-2">
+    <div className={`${open ? "flex" : "hidden"} flex-col items-end gap-2 md:gap-1.5`}>
       <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className={`${pill} bg-primary text-primary-foreground`}>MAX</a>
       <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className={`${pill} bg-foreground text-background`}>Telegram</a>
       <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className={`${pill} bg-accent text-accent-foreground`}>ВКонтакте</a>
     </div>
-    <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={open ? "Скрыть мессенджеры" : "Написать флористу"} className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft md:hidden">
+    <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={open ? "Скрыть мессенджеры" : "Написать флористу"} className="grid h-11 w-11 place-items-center rounded-full bg-primary text-primary-foreground shadow-soft">
       {open ? <X className="h-5 w-5" /> : <MessageCircle className="h-5 w-5" />}
     </button>
   </div>;

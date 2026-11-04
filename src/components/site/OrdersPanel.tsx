@@ -62,10 +62,10 @@ export function OrdersPanel() {
       <Button variant="outline" size="icon" title="Обновить" aria-label="Обновить заказы" onClick={() => requests.refetch()}><RefreshCw /></Button>
     </div>
     {requests.isPending ? <p>Загружаем заказы…</p> : requests.isError ? <p role="alert">Не удалось загрузить заказы. Попробуйте обновить.</p> : rows.length === 0 ? <p className="border-y py-16 text-muted-foreground">{all.length ? 'По этим условиям ничего нет.' : 'Заказов пока нет.'}</p> :
-      <div className="divide-y border-y">{rows.map(r => <button key={r.id} onClick={() => setOpenId(r.id)} className="grid w-full gap-2 py-5 text-left transition-colors hover:bg-muted/40 md:grid-cols-[140px_1fr_1.4fr_120px_170px] md:items-center md:gap-5 md:px-2">
+      <div className="divide-y border-y">{rows.map(r => <button key={r.id} onClick={() => setOpenId(r.id)} className="grid w-full gap-2 py-5 text-left transition-colors hover:bg-muted/40 xl:grid-cols-[140px_minmax(0,1fr)_minmax(0,1.4fr)_120px_170px] md:items-center md:gap-5 md:px-2">
         <span className="text-xs text-muted-foreground">{fmt(r.created_at)}</span>
         <span><span className="font-display text-2xl">{r.name}</span><span className="block text-sm text-muted-foreground">{r.phone}</span></span>
-        <span className="truncate text-sm">{r.order_lines ? (lines(r)?.map(l => `${l.title} × ${l.quantity}`).join(', ') ?? 'Заказ') : <span className="text-muted-foreground">Консультация: {r.message}</span>}</span>
+        <span className="text-sm">{r.order_lines ? (lines(r)?.map(l => `${l.title} × ${l.quantity}`).join(', ') ?? 'Заказ') : <span className="text-muted-foreground">Консультация: {r.message}</span>}</span>
         <span className="text-sm font-semibold">{r.order_lines ? formatPrice(total(r)) : '—'}</span>
         <span><StatusBadge status={r.status} /></span>
       </button>)}</div>}
@@ -97,7 +97,7 @@ function OrderDetails({ r }: { r: Row }) {
       <Button variant="outline" asChild><a href={`tel:${r.phone.replace(/[^+\d]/g, '')}`}>Позвонить {r.phone}</a></Button>
     </div>
     {ls && <div className="border-y py-4"><ul className="space-y-1">{ls.map(l => <li key={l.variantId} className="flex justify-between gap-4"><span>{l.title}{l.variantTitle !== 'Default Title' ? ` · ${l.variantTitle}` : ''} × {l.quantity}</span><span>{formatPrice(l.unitPrice * l.quantity)}</span></li>)}</ul><p className="mt-3 flex justify-between font-semibold"><span>Итого за букеты</span><span>{formatPrice(total(r))}</span></p><p className="mt-1 text-xs text-primary">Оплата согласовывается отдельно</p></div>}
-    {r.delivery_address && <dl className="grid grid-cols-[9rem_1fr] gap-2"><dt className="text-muted-foreground">Адрес</dt><dd className="break-words">{r.delivery_address}</dd><dt className="text-muted-foreground">Желаемое время</dt><dd>{r.desired_delivery_time}</dd></dl>}
+    {r.delivery_address && <dl className="grid gap-2 sm:grid-cols-[8rem_minmax(0,1fr)]"><dt className="text-muted-foreground">Адрес</dt><dd className="break-words">{r.delivery_address}</dd><dt className="text-muted-foreground">Желаемое время</dt><dd>{r.desired_delivery_time}</dd></dl>}
     {r.message && <div><p className="mb-1 text-muted-foreground">{r.order_lines ? 'Комментарий клиента' : 'Пожелания'}</p><p className="whitespace-pre-wrap break-words">{r.message}</p></div>}
     <div className="space-y-2"><p className="text-muted-foreground">Заметка для себя <span className="text-xs">(клиент её не видит)</span></p>
       <Textarea rows={3} maxLength={4000} value={note} onChange={e => setNote(e.target.value)} placeholder="Например: открытка «С днём рождения», позвонить за час" />

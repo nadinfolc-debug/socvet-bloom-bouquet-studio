@@ -68,7 +68,7 @@ export function BouquetManager() {
     </div>
     {bouquets.isPending ? <p>Загружаем букеты…</p> : bouquets.isError ? <p role="alert">Не удалось загрузить букеты. Обновите страницу.</p> : !rows.length ? <p className="border-y py-16 text-muted-foreground">{search ? 'Ничего не найдено.' : 'Букетов пока нет — добавьте первый.'}</p> :
       <div className="divide-y border-y">{rows.map(b => <article key={b.id} className="flex flex-wrap items-center gap-5 py-5">
-        {b.image ? <img className="h-24 w-20 shrink-0 object-cover" src={b.image} alt={b.title} /> : <div className="grid h-24 w-20 shrink-0 place-items-center bg-muted text-muted-foreground"><ImagePlus className="size-5" /></div>}
+        {b.image ? <img className="h-24 w-20 shrink-0 object-contain" src={b.image} alt={b.title} /> : <div className="grid h-24 w-20 shrink-0 place-items-center bg-muted text-muted-foreground"><ImagePlus className="size-5" /></div>}
         <div className="min-w-0 flex-1">
           <h2 className="font-display text-3xl break-words">{b.title}</h2>
           <p className="text-sm">{b.variants.length > 1 ? 'от ' : ''}{formatPrice(b.price)}
@@ -147,7 +147,7 @@ function BouquetForm({ bouquet, collections, onDone }: { bouquet: AdminBouquet |
       <p className="mb-2 text-sm font-medium">Фото <span className="font-normal text-muted-foreground">— первое будет главным</span></p>
       <div className="flex flex-wrap gap-3">
         {photos.map((p, i) => <div key={p.kind === 'existing' ? p.id : p.key} className="relative w-28">
-          <img src={p.url} alt="" className={`aspect-[4/5] w-full object-cover ${i === 0 ? 'ring-2 ring-primary' : ''}`} />
+          <img src={p.url} alt="" className={`aspect-[4/5] w-full object-contain ${i === 0 ? 'ring-2 ring-primary' : ''}`} />
           {i === 0 && <span className="absolute left-1 top-1 bg-primary px-1.5 text-[10px] text-primary-foreground">Главное</span>}
           <button type="button" aria-label="Убрать фото" className="absolute right-1 top-1 grid size-6 place-items-center rounded-full bg-background/90" onClick={() => setPhotos(ps => ps.filter((_, j) => j !== i))}><X className="size-3.5" /></button>
           <div className="mt-1 flex justify-between">

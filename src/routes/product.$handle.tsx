@@ -63,8 +63,12 @@ function ProductPage() {
 
   const add = async () => {
     if (!variant) return;
-    await addItem({ product, variantId: variant.id, variantTitle: variant.title, price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions });
-    toast.success("Добавлено в корзину", { description: p.title, position: "top-center" });
+    try {
+      await addItem({ product, variantId: variant.id, variantTitle: variant.title, price: variant.price, quantity: 1, selectedOptions: variant.selectedOptions });
+      toast.success("Добавлено в корзину", { description: p.title, position: "top-center" });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Не удалось добавить букет");
+    }
   };
 
   return (
@@ -72,20 +76,20 @@ function ProductPage() {
       <Link to="/catalog" className="eyebrow text-muted-foreground hover:text-primary">← Каталог</Link>
       <div className="mt-5 grid gap-8 md:mt-10 md:grid-cols-12 md:gap-16">
         <div className="md:col-span-7" data-reveal>
-          <div className="aspect-[4/5] overflow-hidden bg-milk arch shadow-soft">
-            {images[imgIdx] && <img src={images[imgIdx].url} alt={images[imgIdx].altText ?? p.title} className="h-full w-full object-cover" />}
+          <div className="aspect-[4/5] max-h-[65svh] bg-milk rounded-sm shadow-soft">
+            {images[imgIdx] && <img src={images[imgIdx].url} alt={images[imgIdx].altText ?? p.title} className="h-full w-full object-contain" />}
           </div>
           {images.length > 1 && (
             <div className="mt-4 flex flex-wrap gap-3">
               {images.map((im, i) => (
                 <button key={im.url} onClick={() => setImgIdx(i)} className={`h-24 w-20 overflow-hidden ${i === imgIdx ? "ring-2 ring-primary" : "opacity-60"}`}>
-                  <img src={im.url} alt="" className="h-full w-full object-cover" />
+                  <img src={im.url} alt="" className="h-full w-full object-contain" />
                 </button>
               ))}
             </div>
           )}
         </div>
-        <div className="md:col-span-5 md:sticky md:top-28 md:self-start" data-reveal data-delay="1">
+        <div className="md:col-span-5 md:self-start" data-reveal data-delay="1">
           <p className="eyebrow mb-6 text-primary">Авторская композиция</p>
           <h1 className="display-lg">{p.title}</h1>
           <p className="mt-6 font-display text-4xl text-primary">{variant && formatPrice(variant.price.amount, variant.price.currencyCode)}
@@ -94,8 +98,8 @@ function ProductPage() {
           {p.description && <p className="mt-8 whitespace-pre-line leading-relaxed text-muted-foreground">{p.description}</p>}
           {(p.composition?.value.trim() || p.size?.value.trim()) && (
             <dl className="mt-8 space-y-4 text-sm">
-              {p.composition?.value.trim() && <div className="grid grid-cols-[8rem_1fr] gap-4"><dt className="eyebrow text-muted-foreground">Состав</dt><dd className="whitespace-pre-line">{p.composition.value.trim()}</dd></div>}
-              {p.size?.value.trim() && <div className="grid grid-cols-[8rem_1fr] gap-4"><dt className="eyebrow text-muted-foreground">Размер</dt><dd className="whitespace-pre-line">{p.size.value.trim()}</dd></div>}
+              {p.composition?.value.trim() && <div className="grid gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4"><dt className="eyebrow text-muted-foreground">Состав</dt><dd className="whitespace-pre-line">{p.composition.value.trim()}</dd></div>}
+              {p.size?.value.trim() && <div className="grid gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4"><dt className="eyebrow text-muted-foreground">Размер</dt><dd className="whitespace-pre-line">{p.size.value.trim()}</dd></div>}
             </dl>
           )}
 
@@ -119,9 +123,9 @@ function ProductPage() {
           <MessengerButtons className="mt-3" />
 
           <div className="mt-12 space-y-5 border-t pt-8 text-sm">
-            <div className="grid grid-cols-[8rem_1fr] gap-4"><span className="eyebrow text-muted-foreground">Доставка</span><span>По Москве за 2–3 часа или ко времени</span></div>
-            <div className="grid grid-cols-[8rem_1fr] gap-4"><span className="eyebrow text-muted-foreground">Уход</span><span>Подрежьте стебли и меняйте воду каждый день</span></div>
-            <div className="grid grid-cols-[8rem_1fr] gap-4"><span className="eyebrow text-muted-foreground">Открытка</span><span>Бесплатно, с вашим текстом от руки</span></div>
+            <div className="grid gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4"><span className="eyebrow text-muted-foreground">Доставка</span><span>По Москве за 2–3 часа или ко времени</span></div>
+            <div className="grid gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4"><span className="eyebrow text-muted-foreground">Уход</span><span>Подрежьте стебли и меняйте воду каждый день</span></div>
+            <div className="grid gap-2 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4"><span className="eyebrow text-muted-foreground">Открытка</span><span>Бесплатно, с вашим текстом от руки</span></div>
           </div>
         </div>
       </div>

@@ -81,7 +81,7 @@
     font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.02em;
-    line-height: 0.95;
+    line-height: 1.1;
   }
 }
 
@@ -89,7 +89,7 @@
 @utility display-xl {
   font-family: var(--font-display);
   font-size: clamp(3rem, min(9vw, 13vh), 8.5rem);
-  line-height: 0.85;
+  line-height: 1.02;
   letter-spacing: -0.04em;
   font-weight: 500;
 }
@@ -97,35 +97,33 @@
 @utility display-lg {
   font-family: var(--font-display);
   font-size: clamp(2.25rem, min(6vw, 8.5vh), 5.5rem);
-  line-height: 0.9;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 500;
 }
 
-/* Один раздел = один экран (ПК): высота экрана минус шапка */
+/* Sections grow with their content. Never clip content to force a screen height. */
 :root { --header-h: 5rem; }
-@media (min-width: 768px) and (min-height: 560px) {
-  html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
-}
-@media (max-width: 767px) {
-  :root { --header-h: 3.5rem; }
-  html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
-}
+html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+@media (max-width: 767px) { :root { --header-h: 3.5rem; } }
 @utility screen-block {
-  @media (max-width: 767px) {
+  min-width: 0;
+  @media (min-width: 1024px) and (min-height: 700px) {
     min-height: calc(100svh - var(--header-h));
-    scroll-snap-align: start;
-    overflow-x: clip;
-  }
-  @media (min-width: 768px) and (min-height: 560px) {
-    min-height: calc(100svh - var(--header-h));
-    scroll-snap-align: start;
   }
 }
-
-/* Максимальная высота крупного фото: экран минус шапка и отступы */
-@utility max-h-fit-screen {
-  max-height: calc(100svh - 13rem);
+@utility editorial-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(65svh, 42rem);
+  object-fit: contain;
+}
+@layer base {
+  :where(main, footer) :where(div, section, article, aside, header, nav, figure, fieldset, dl, dd) { min-width: 0; }
+  :where(h1, h2, h3, h4, p, a, button, label, dt, dd, blockquote, figcaption, span) { overflow-wrap: anywhere; }
+  img { max-width: 100%; }
+  button, input, textarea, select { max-width: 100%; }
 }
 
 @utility eyebrow {
