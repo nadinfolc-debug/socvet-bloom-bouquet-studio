@@ -91,12 +91,12 @@ function Index() {
       <section className="screen-block relative flex flex-col justify-center overflow-hidden bg-ink text-ink-foreground">
         <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 px-5 py-8 md:grid-cols-2 md:gap-16 md:px-10 md:py-10">
           <div data-reveal>
-            <p className="eyebrow mb-4 opacity-60">Индивидуальный заказ</p>
+            <p className="eyebrow mb-4 opacity-80">Индивидуальный заказ</p>
             <h2 className="display-lg">Ваш особенный<br /><em className="text-blush">букет</em></h2>
-            <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed opacity-75 md:mt-6 md:text-base">
+            <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed opacity-90 md:mt-6 md:text-base">
               Не нашли тот самый? Посоветуйтесь с флористом: расскажите о поводе, любимых цветах и бюджете. Вместе подберём сочетания и соберём букет на заказ.
             </p>
-            <p className="mt-4 text-sm opacity-75 md:mt-6">Быстрее всего — написать флористу:</p>
+            <p className="mt-4 text-sm opacity-90 md:mt-6">Быстрее всего — написать флористу:</p>
             <MessengerButtons className="mt-3" />
             <RequestForm />
           </div>
