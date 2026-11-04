@@ -12,7 +12,7 @@ export function RequestForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
   return <Dialog onOpenChange={() => { setSent(false); setError(''); }}>
-    <DialogTrigger asChild><Button variant="petal" size="xl" className="mt-8 whitespace-normal">Посоветоваться с флористом</Button></DialogTrigger>
+    <DialogTrigger asChild><Button variant="petal" size="xl" className="mt-6 whitespace-normal md:mt-8">Посоветоваться с флористом</Button></DialogTrigger>
     <DialogContent className="max-h-[90dvh] overflow-y-auto">
       <DialogTitle className="font-display text-4xl">Ваш особенный букет</DialogTitle>
       <DialogDescription>Индивидуальный заказ · Соцвет</DialogDescription>
