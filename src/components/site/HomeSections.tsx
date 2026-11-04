@@ -99,7 +99,7 @@ export function Reviews() {
 }
 
 export function Faq() {
-  return <section className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 md:grid-cols-12 md:px-10 md:py-20">
+  return <section className="mx-auto grid max-w-[1400px] gap-10 px-6 py-12 md:grid-cols-12 md:px-10 md:py-14">
     <h2 className="display-lg md:col-span-5" data-reveal>Частые<br /><em className="text-primary">вопросы</em></h2>
     <Accordion type="single" collapsible className="md:col-span-7" data-reveal data-delay="1">
       {faq.map(([q, a]) => <AccordionItem key={q} value={q}>

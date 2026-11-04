@@ -104,7 +104,7 @@
 
 /* Максимальная высота крупного фото: экран минус шапка и отступы */
 @utility max-h-fit-screen {
-  max-height: calc(100svh - 11rem);
+  max-height: calc(100svh - 13rem);
 }
 
 @utility eyebrow {
