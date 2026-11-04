@@ -103,7 +103,7 @@
 }
 
 /* Один раздел = один экран (ПК): высота экрана минус шапка */
-:root { --header-h: 5.25rem; }
+:root { --header-h: 5rem; }
 @media (min-width: 768px) and (min-height: 560px) {
   html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
 }

@@ -30,9 +30,9 @@ function Index() {
   return (
     <>
       {/* Спокойный блок: герой */}
-      <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-6 pb-12 pt-4 md:px-10 md:pb-8">
+      <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-6 pb-12 pt-4 md:px-10 md:py-6">
         <div className="grid items-end gap-10 md:grid-cols-12">
-          <div className="animate-rise md:col-span-5">
+          <div className="animate-rise md:col-span-6 lg:col-span-5">
             <p className="eyebrow mb-6 text-primary">Авторская флористика · Москва</p>
             <h1 className="display-xl">
               Чувства<br />
@@ -51,8 +51,8 @@ function Index() {
               </Button>
             </div>
           </div>
-          <div className="md:col-span-7" data-reveal>
-            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[70vh] object-cover shadow-soft md:max-h-[calc(100svh-22rem)]" />
+          <div className="md:col-span-6 lg:col-span-7" data-reveal>
+            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[70vh] object-cover shadow-soft md:max-h-[calc(100svh-24rem)]" />
           </div>
         </div>
         <Stats />
