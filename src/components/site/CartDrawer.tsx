@@ -27,7 +27,7 @@ export function CartDrawer() {
   return (
     <><Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <button className="eyebrow relative flex items-center gap-2 hover:text-primary" aria-label="Открыть корзину">
+        <button className="eyebrow relative flex min-h-11 min-w-11 items-center justify-center gap-2 hover:text-primary" aria-label="Открыть корзину">
           Корзина
           <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary px-1.5 text-[0.65rem] tracking-normal text-primary-foreground">
             {totalItems}
@@ -64,12 +64,12 @@ export function CartDrawer() {
                       )}
                       <p className="mt-1 text-sm font-semibold">{formatPrice(item.price.amount, item.price.currencyCode)}</p>
                       <div className="mt-2 flex items-center gap-3">
-                        <button className="rounded-full border p-1 hover:border-primary" onClick={() => updateQuantity(item.variantId, item.quantity - 1)} aria-label="Меньше"><Minus className="h-3 w-3" /></button>
-                        <span className="w-4 text-center text-sm">{item.quantity}</span>
-                        <button className="rounded-full border p-1 hover:border-primary" onClick={() => updateQuantity(item.variantId, item.quantity + 1)} aria-label="Больше"><Plus className="h-3 w-3" /></button>
+                        <button className="grid h-11 w-11 place-items-center rounded-full border hover:border-primary" onClick={() => updateQuantity(item.variantId, item.quantity - 1)} aria-label={`Уменьшить количество: ${item.product.node.title}`}><Minus className="h-3 w-3" /></button>
+                        <span className="w-4 text-center text-sm" aria-live="polite" aria-label={`Количество: ${item.quantity}`}>{item.quantity}</span>
+                        <button className="grid h-11 w-11 place-items-center rounded-full border hover:border-primary" onClick={() => updateQuantity(item.variantId, item.quantity + 1)} aria-label={`Увеличить количество: ${item.product.node.title}`}><Plus className="h-3 w-3" /></button>
                       </div>
                     </div>
-                    <button onClick={() => removeItem(item.variantId)} className="self-start text-muted-foreground hover:text-primary" aria-label="Удалить"><X className="h-4 w-4" /></button>
+                    <button onClick={() => removeItem(item.variantId)} className="-mr-3 -mt-3 grid h-11 w-11 place-items-center self-start text-muted-foreground hover:text-primary" aria-label={`Удалить из корзины: ${item.product.node.title}`}><X className="h-4 w-4" /></button>
                   </div>
                 ))}
               </div>

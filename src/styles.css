@@ -52,7 +52,7 @@
   --secondary: oklch(0.93 0.03 30);
   --secondary-foreground: oklch(0.3 0.08 15);
   --muted: oklch(0.94 0.018 75);
-  --muted-foreground: oklch(0.48 0.025 40);
+  --muted-foreground: oklch(0.44 0.025 40);
   --accent: oklch(0.9 0.045 20);
   --accent-foreground: oklch(0.3 0.1 15);
   --blush: oklch(0.88 0.05 25);
@@ -181,4 +181,15 @@ html.js-reveal [data-reveal][data-delay="3"] { animation-delay: 330ms; }
 @media (prefers-reduced-motion: reduce) {
   html.js-reveal [data-reveal] { opacity: 1; }
   html.js-reveal [data-reveal][data-shown] { animation: none; }
+}
+
+/* Видимый фокус для клавиатуры */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

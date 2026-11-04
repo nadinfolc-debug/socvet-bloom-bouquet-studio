@@ -26,30 +26,36 @@ export function ProductCard({ product, index = 0, compact = false }: { product: 
   };
 
   return (
-    <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`} data-reveal data-delay={index % 3}>
+    <article className={`group relative ${offset}`} data-reveal data-delay={index % 3}>
       <div className={`relative mx-auto aspect-[4/5] max-w-full overflow-hidden ${compact ? "h-[38svh] md:h-auto md:w-full md:max-h-[calc(100svh-28rem)]" : "h-[50svh] md:h-auto md:w-full md:max-h-[60vh]"} bg-milk arch`}>
         {img && (
           <img src={img.url} alt={img.altText ?? p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
         )}
         <button
+          type="button"
           onClick={add}
           disabled={isLoading || !variant?.availableForSale}
-          className="eyebrow absolute bottom-5 left-1/2 -translate-x-1/2 translate-y-4 rounded-full bg-background px-6 py-3 opacity-0 transition-all duration-500 hover:bg-primary hover:text-primary-foreground group-hover:translate-y-0 group-hover:opacity-100 disabled:opacity-50"
+          aria-label={variant?.availableForSale === false ? `${p.title} — нет в наличии` : `Добавить в корзину: ${p.title}`}
+          className="eyebrow absolute bottom-4 left-1/2 z-10 min-h-11 -translate-x-1/2 rounded-full bg-background px-6 py-3 shadow-soft transition-all duration-500 hover:bg-primary hover:text-primary-foreground focus-visible:translate-y-0 focus-visible:opacity-100 disabled:opacity-60 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
         >
           {variant?.availableForSale === false ? "Нет в наличии" : "В корзину"}
         </button>
       </div>
       <div className={`${compact ? "mt-3" : "mt-5"} flex items-baseline justify-between gap-4`}>
-        <h3 className={`font-display ${compact ? "text-2xl" : "text-2xl md:text-3xl"}`}>{p.title}</h3>
+        <h3 className={`font-display ${compact ? "text-2xl" : "text-2xl md:text-3xl"}`}>
+          <Link to="/product/$handle" params={{ handle: p.handle }} className="after:absolute after:inset-0">
+            {p.title}
+          </Link>
+        </h3>
         <span className="whitespace-nowrap text-sm font-semibold text-primary">
           {p.variants.edges.length > 1 ? "от " : ""}{formatPrice(p.priceRange.minVariantPrice.amount, p.priceRange.minVariantPrice.currencyCode)}
           {variant?.compareAtPrice && Number(variant.compareAtPrice.amount) > Number(variant.price.amount) && (
-            <s className="ml-2 font-normal text-muted-foreground">{formatPrice(variant.compareAtPrice.amount)}</s>
+            <s className="ml-2 font-normal text-muted-foreground"><span className="sr-only">старая цена </span>{formatPrice(variant.compareAtPrice.amount)}</s>
           )}
         </span>
       </div>
       {p.description && <p className="mt-2 text-sm md:line-clamp-2 text-muted-foreground">{p.description}</p>}
-    </Link>
+    </article>
   );
 }
 

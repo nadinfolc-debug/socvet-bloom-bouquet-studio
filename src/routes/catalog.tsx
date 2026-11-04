@@ -52,36 +52,38 @@ function Catalog() {
           Букеты собираются вручную в день доставки. Состав может меняться по сезону — характер остаётся.
         </p>
       </header>
-      <div className="mb-6 flex flex-wrap gap-3 border-y py-3" data-reveal data-delay="1">
+      <div role="group" aria-label="Сортировка по цене" className="mb-6 flex flex-wrap gap-2 border-y py-3" data-reveal data-delay="1">
         {sorts.map((s) => (
           <button
             key={s.id}
+            type="button"
             onClick={() => setSort(s.id)}
-            className={`eyebrow rounded-full px-3 py-1.5 md:px-5 md:py-2 transition-colors ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
+            aria-pressed={sort === s.id}
+            className={`eyebrow min-h-11 rounded-full px-4 md:px-5 transition-colors ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
           >
             {s.label}
           </button>
         ))}
-        <span className="eyebrow ml-auto self-center text-muted-foreground">{list.length} композиций</span>
+        <span className="eyebrow ml-auto self-center text-muted-foreground" role="status" aria-live="polite">{list.length} композиций</span>
       </div>
       {collections.length > 0 && (
-        <div className="mb-10 flex flex-wrap gap-3" data-reveal data-delay="2">
+        <div role="group" aria-label="Подборки" className="mb-10 flex flex-wrap gap-2" data-reveal data-delay="2">
           {[{ id: null, title: "Все букеты" }, ...collections].map((c) => (
-            <button key={c.id ?? "all"} onClick={() => setCollection(c.id)} aria-pressed={collection === c.id}
-              className={`rounded-full border px-5 py-2 text-sm transition-colors ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
+            <button type="button" key={c.id ?? "all"} onClick={() => setCollection(c.id)} aria-pressed={collection === c.id}
+              className={`min-h-11 rounded-full border px-5 text-sm transition-colors ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
               {c.title}
             </button>
           ))}
         </div>
       )}
       {isLoading ? (
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4" aria-busy="true" aria-label="Загрузка букетов">
           {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
         </div>
       ) : list.length > 0 ? (
-        <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-          {list.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} />)}
-        </div>
+        <ul className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4" aria-label="Букеты">
+          {list.map((p, i) => <li key={p.node.id}><ProductCard product={p} index={i} /></li>)}
+        </ul>
       ) : (
         <EmptyProducts />
       )}
