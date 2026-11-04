@@ -33,20 +33,20 @@ function Index() {
       <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-6 pb-12 pt-4 md:px-10 md:py-6">
         <div className="grid items-end gap-10 md:grid-cols-12">
           <div className="animate-rise md:col-span-6 lg:col-span-5">
-            <p className="eyebrow mb-6 text-primary">Авторская флористика · Москва</p>
-            <h1 className="display-xl">
+            <p className="eyebrow mb-4 text-primary md:mb-5">Авторская флористика · Москва</p>
+            <h1 className="display-xl md:[font-size:clamp(3rem,min(8vw,11vh),8.5rem)]">
               Чувства<br />
               <em className="text-primary">обретают</em><br />
               форму
             </h1>
-            <p className="mt-6 max-w-sm text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-sm text-lg leading-relaxed text-muted-foreground">
               Выберите готовый букет или посоветуйтесь с флористом — и мы соберём ваш особенный.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button variant="petal" size="xl" asChild>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button variant="petal" size="xl" className="md:px-7" asChild>
                 <Link to="/catalog">Смотреть букеты</Link>
               </Button>
-              <Button variant="line" size="xl" asChild>
+              <Button variant="line" size="xl" className="md:px-7" asChild>
                 <Link to="/delivery">Доставка</Link>
               </Button>
             </div>

@@ -29,7 +29,7 @@ const faq = [
 ] as const;
 
 export function Stats() {
-  return <div className="mt-10 grid grid-cols-2 gap-y-6 border-t border-foreground/10 pt-6 md:mt-8 md:grid-cols-4">
+  return <div className="mt-10 grid grid-cols-2 gap-y-6 border-t border-foreground/10 pt-6 md:mt-6 md:grid-cols-4 md:pt-5">
       {stats.map(([n, t], i) => <div key={n} data-reveal data-delay={i % 4}>
         <p className="font-display text-4xl italic text-primary md:text-5xl">{n}</p>
         <p className="mt-1 max-w-[14rem] text-sm text-muted-foreground">{t}</p>
