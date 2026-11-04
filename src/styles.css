@@ -107,9 +107,14 @@
 @media (min-width: 768px) and (min-height: 560px) {
   html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
 }
+@media (max-width: 767px) {
+  :root { --header-h: 3.5rem; }
+  html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
+}
 @utility screen-block {
   @media (max-width: 767px) {
-    border-bottom: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+    min-height: calc(100svh - var(--header-h));
+    scroll-snap-align: start;
     overflow-x: clip;
   }
   @media (min-width: 768px) and (min-height: 560px) {

@@ -13,7 +13,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-10">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between h-14 px-5 md:h-auto md:px-10 md:py-5">
         <nav className="hidden flex-1 gap-8 md:flex">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} className="eyebrow hover:text-primary" activeProps={{ className: "text-primary" }}>
