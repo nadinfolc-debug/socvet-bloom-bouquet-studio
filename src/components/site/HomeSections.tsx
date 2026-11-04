@@ -57,8 +57,8 @@ export function Florist() {
 }
 
 export function HowWeWork() {
-  return <section className="mx-auto max-w-[1400px] px-6 py-16 md:px-10 md:py-20">
-    <h2 className="display-lg mb-10 md:mb-12" data-reveal>Как мы<br /><em className="text-primary">работаем</em></h2>
+  return <section className="mx-auto max-w-[1400px] px-6 py-12 md:px-10 md:py-14">
+    <h2 className="display-lg mb-8 md:mb-10" data-reveal>Как мы<br /><em className="text-primary">работаем</em></h2>
     <div className="grid gap-12 md:grid-cols-3">{steps.map(([n, t, d], i) => <div key={n} className="border-t border-foreground/20 pt-6" data-reveal data-delay={i}>
       <p className="font-display text-5xl italic text-primary">{n}</p>
       <h3 className="mt-4 font-display text-3xl">{t}</h3>

@@ -87,11 +87,11 @@ function Index() {
 
       {/* Насыщенный блок: мастерская */}
       <section className="relative overflow-hidden bg-ink text-ink-foreground">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-16 px-6 py-16 md:grid-cols-2 md:px-10 md:py-14">
+        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-2 md:gap-16 md:px-10 md:py-14">
           <div data-reveal>
-            <p className="eyebrow mb-6 opacity-60">Индивидуальный заказ</p>
+            <p className="eyebrow mb-4 opacity-60">Индивидуальный заказ</p>
             <h2 className="display-lg">Ваш особенный<br /><em className="text-blush">букет</em></h2>
-            <p className="mt-8 max-w-md leading-relaxed opacity-75">
+            <p className="mt-6 max-w-md leading-relaxed opacity-75">
               Не нашли тот самый? Посоветуйтесь с флористом: расскажите о поводе, любимых цветах и бюджете. Вместе подберём сочетания и соберём букет на заказ.
             </p>
             <p className="mt-6 text-sm opacity-75">Быстрее всего — написать флористу:</p>
