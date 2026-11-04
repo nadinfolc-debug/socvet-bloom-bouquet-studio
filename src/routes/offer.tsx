@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export const Route = createFileRoute("/offer")({
   head: () => ({
@@ -16,7 +15,6 @@ export const Route = createFileRoute("/offer")({
 });
 
 function Offer() {
-  useScrollReveal();
   return (
     <article className="prose-legal mx-auto max-w-3xl px-6 pb-32 pt-12" data-reveal>
       <h1 className="display-lg mb-10">Публичная оферта</h1>
@@ -32,7 +30,10 @@ function Offer() {
       <h2>5. Возврат</h2>
       <p>Живые цветы надлежащего качества возврату не подлежат (Постановление Правительства РФ № 2463). Претензии по качеству принимаются в течение 24 часов с приложением фото.</p>
       <h2>6. Реквизиты</h2>
-      <p>Реквизиты Продавца будут указаны здесь.</p>
+      <p>
+        В этом концепт-проекте для портфолио реквизиты продавца не публикуются.
+        В боевом запуске здесь указываются полное наименование, ИНН и банковские реквизиты мастерской.
+      </p>
     </article>
   );
 }

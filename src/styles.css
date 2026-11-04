@@ -103,9 +103,9 @@
 }
 
 /* Sections grow with their content. Never clip content to force a screen height. */
-:root { --header-h: 5rem; }
+:root { --header-h: 3.5rem; }
 html { scroll-padding-top: calc(var(--header-h) + 1rem); }
-@media (max-width: 767px) { :root { --header-h: 3.5rem; } }
+@media (min-width: 768px) { :root { --header-h: 4.5rem; } }
 @utility screen-block {
   min-width: 0;
   @media (min-width: 1024px) and (min-height: 700px) {
@@ -157,28 +157,19 @@ html { scroll-padding-top: calc(var(--header-h) + 1rem); }
   animation: rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* Плавное появление блоков при прокрутке страницы */
-@keyframes reveal-rise {
-  from { opacity: 0; transform: translateY(28px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Атрибут data-shown ставит скрипт, когда блок вошёл в поле зрения */
+/* Плавное появление блоков: старт скрыт, анимацию делает GSAP (useScrollReveal) */
 html.js-reveal [data-reveal]:not([data-shown]) {
   opacity: 0;
+  transform: translateY(36px);
+  will-change: opacity, transform;
 }
-
-html.js-reveal [data-reveal][data-shown] {
-  animation: reveal-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-}
-
-html.js-reveal [data-reveal][data-delay="1"] { animation-delay: 110ms; }
-html.js-reveal [data-reveal][data-delay="2"] { animation-delay: 220ms; }
-html.js-reveal [data-reveal][data-delay="3"] { animation-delay: 330ms; }
 
 @media (prefers-reduced-motion: reduce) {
-  html.js-reveal [data-reveal] { opacity: 1; }
-  html.js-reveal [data-reveal][data-shown] { animation: none; }
+  html.js-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
 }
 
 /* Видимый фокус для клавиатуры */

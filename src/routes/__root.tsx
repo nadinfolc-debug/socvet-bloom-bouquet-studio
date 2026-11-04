@@ -17,6 +17,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { useCartSync } from "@/hooks/useCartSync";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { supabase } from '@/integrations/supabase/client';
 
 function NotFoundComponent() {
@@ -98,7 +99,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         {/* Без JavaScript блоки остаются видимыми */}
         <noscript>
-          <style>{`html.js-reveal [data-reveal]{opacity:1!important}`}</style>
+          <style>{`html.js-reveal [data-reveal]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
       </head>
       <body>
@@ -122,15 +123,20 @@ function RootComponent() {
     return () => subscription.unsubscribe();
   }, [router, queryClient]);
   useCartSync();
+  useScrollReveal();
 
   return (
     <QueryClientProvider client={queryClient}>
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-5 focus:py-3 focus:text-primary-foreground">Перейти к содержанию</a>
       <Header />
-      <div className="mx-auto flex w-full max-w-[1400px] justify-end px-3 py-3 md:px-10"><FloatingContact /></div>
       <main id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
+      <div className="pointer-events-none fixed bottom-5 right-4 z-30 md:bottom-8 md:right-8">
+        <div className="pointer-events-auto">
+          <FloatingContact />
+        </div>
+      </div>
       <Footer />
       <Toaster position="top-center" />
     </QueryClientProvider>

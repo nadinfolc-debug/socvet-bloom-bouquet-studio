@@ -25,9 +25,16 @@ export function CartDrawer() {
   return (
     <><Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <button className="eyebrow relative flex min-h-11 min-w-11 items-center justify-center gap-2 hover:text-primary" aria-label="Открыть корзину">
+        <button
+          data-cart-trigger
+          className="eyebrow relative flex min-h-11 min-w-11 items-center justify-center gap-2 hover:text-primary"
+          aria-label="Открыть корзину"
+        >
           Корзина
-          <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary px-1.5 text-[0.65rem] tracking-normal text-primary-foreground">
+          <span
+            data-cart-count
+            className="flex h-6 min-w-6 items-center justify-center rounded-full bg-primary px-1.5 text-[0.65rem] tracking-normal text-primary-foreground"
+          >
             {totalItems}
           </span>
         </button>

@@ -29,7 +29,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 bg-background/85 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between h-14 px-3 md:h-auto md:px-10 md:py-5">
+      <div className="mx-auto flex h-[var(--header-h)] max-w-[1400px] items-center justify-between px-3 md:px-10">
         <nav aria-label="Основное меню" className="hidden flex-1 gap-8 md:flex">
           {nav.map((n) => (
             <Link key={n.to} to={n.to} className="eyebrow hover:text-primary" activeProps={{ className: "text-primary", "aria-current": "page" }}>
