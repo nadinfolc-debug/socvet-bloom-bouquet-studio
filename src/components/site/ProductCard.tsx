@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useCartStore } from "@/stores/cartStore";
 import { formatPrice, type ShopifyProduct } from "@/lib/shopify";
 
-export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; index?: number }) {
+export function ProductCard({ product, index = 0, compact = false }: { product: ShopifyProduct; index?: number; compact?: boolean }) {
   const addItem = useCartStore((s) => s.addItem);
   const isLoading = useCartStore((s) => s.isLoading);
   const p = product.node;
@@ -27,7 +27,7 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
 
   return (
     <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`} data-reveal data-delay={index % 3}>
-      <div className="relative mx-auto aspect-[4/5] max-h-[60vh] w-full overflow-hidden bg-milk arch">
+      <div className={`relative mx-auto aspect-[4/5] w-full overflow-hidden ${compact ? "max-h-[60vh] md:max-h-[calc(100svh-25rem)]" : "max-h-[60vh]"} bg-milk arch`}>
         {img && (
           <img src={img.url} alt={img.altText ?? p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
         )}
@@ -39,8 +39,8 @@ export function ProductCard({ product, index = 0 }: { product: ShopifyProduct; i
           {variant?.availableForSale === false ? "Нет в наличии" : "В корзину"}
         </button>
       </div>
-      <div className="mt-5 flex items-baseline justify-between gap-4">
-        <h3 className="font-display text-2xl md:text-3xl">{p.title}</h3>
+      <div className={`${compact ? "mt-3" : "mt-5"} flex items-baseline justify-between gap-4`}>
+        <h3 className={`font-display ${compact ? "text-2xl" : "text-2xl md:text-3xl"}`}>{p.title}</h3>
         <span className="whitespace-nowrap text-sm font-semibold text-primary">
           {p.variants.edges.length > 1 ? "от " : ""}{formatPrice(p.priceRange.minVariantPrice.amount, p.priceRange.minVariantPrice.currencyCode)}
           {variant?.compareAtPrice && Number(variant.compareAtPrice.amount) > Number(variant.price.amount) && (

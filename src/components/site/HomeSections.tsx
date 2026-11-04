@@ -29,18 +29,16 @@ const faq = [
 ] as const;
 
 export function Stats() {
-  return <section className="border-y border-foreground/10">
-    <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-y-10 px-6 py-10 md:grid-cols-4 md:py-12 md:px-10">
+  return <div className="mt-10 grid grid-cols-2 gap-y-6 border-t border-foreground/10 pt-6 md:mt-6 md:grid-cols-4 md:pt-5">
       {stats.map(([n, t], i) => <div key={n} data-reveal data-delay={i % 4}>
-        <p className="font-display text-5xl italic text-primary md:text-6xl">{n}</p>
-        <p className="mt-2 max-w-[14rem] text-sm text-muted-foreground">{t}</p>
+        <p className="font-display text-4xl italic text-primary md:text-5xl">{n}</p>
+        <p className="mt-1 max-w-[14rem] text-sm text-muted-foreground">{t}</p>
       </div>)}
-    </div>
-  </section>;
+  </div>;
 }
 
 export function Florist() {
-  return <section className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-12 md:gap-16 md:px-10 md:py-14">
+  return <section className="screen-block mx-auto grid max-w-[1400px] content-center items-center gap-10 px-6 py-12 md:grid-cols-12 md:gap-16 md:px-10 md:py-10">
     <img src={sculpture} alt="Авторская композиция: калла и ветви вишни в чёрной вазе" loading="lazy" width={1024} height={1280} className="w-full max-h-[70vh] object-cover shadow-soft md:col-span-5 md:max-h-fit-screen" data-reveal />
     <div className="md:col-span-6 md:col-start-7" data-reveal data-delay="1">
       <p className="eyebrow mb-5 text-primary">Флорист и основатель</p>
@@ -57,7 +55,7 @@ export function Florist() {
 }
 
 export function HowWeWork() {
-  return <section className="mx-auto max-w-[1400px] px-6 py-12 md:px-10 md:py-14">
+  return <section className="screen-block mx-auto flex max-w-[1400px] flex-col justify-center px-6 py-12 md:px-10 md:py-10">
     <h2 className="display-lg mb-8 md:mb-10" data-reveal>Как мы<br /><em className="text-primary">работаем</em></h2>
     <div className="grid gap-12 md:grid-cols-3">{steps.map(([n, t, d], i) => <div key={n} className="border-t border-foreground/20 pt-6" data-reveal data-delay={i}>
       <p className="font-display text-5xl italic text-primary">{n}</p>
@@ -74,8 +72,8 @@ export function Reviews() {
     if (!el) return;
     el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: 'smooth' });
   };
-  return <section className="bg-secondary/40">
-    <div className="mx-auto max-w-[1400px] px-6 py-12 md:px-10 md:py-14">
+  return <section className="screen-block flex flex-col justify-center bg-secondary/40">
+    <div className="mx-auto w-full max-w-[1400px] px-6 py-12 md:px-10 md:py-10">
       <div className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
         <div>
           <p className="eyebrow mb-4 text-primary">★★★★★ · 4,9 из 5 · Отзывы</p>
@@ -99,7 +97,7 @@ export function Reviews() {
 }
 
 export function Faq() {
-  return <section className="mx-auto grid max-w-[1400px] gap-10 px-6 py-12 md:grid-cols-12 md:px-10 md:py-14">
+  return <section className="screen-block mx-auto grid max-w-[1400px] content-center gap-10 px-6 py-12 md:grid-cols-12 md:px-10 md:py-10">
     <h2 className="display-lg md:col-span-5" data-reveal>Частые<br /><em className="text-primary">вопросы</em></h2>
     <Accordion type="single" collapsible className="md:col-span-7" data-reveal data-delay="1">
       {faq.map(([q, a]) => <AccordionItem key={q} value={q}>
@@ -119,9 +117,9 @@ export function MessengerButtons({ className = '' }: { className?: string }) {
 }
 
 export function FloatingContact() {
-  return <div className="fixed bottom-3 right-3 z-40 flex flex-col items-end gap-1.5 md:bottom-4 md:right-4 md:gap-2">
-    <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className="rounded-full bg-primary px-3 py-2 text-xs md:px-4 md:py-3 md:text-sm text-primary-foreground shadow-soft hover:opacity-90">MAX</a>
-    <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className="rounded-full bg-foreground px-3 py-2 text-xs md:px-4 md:py-3 md:text-sm text-background shadow-soft hover:opacity-90">Telegram</a>
-    <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className="rounded-full bg-accent px-3 py-2 text-xs md:px-4 md:py-3 md:text-sm text-accent-foreground shadow-soft hover:opacity-90">ВКонтакте</a>
+  return <div className="fixed bottom-3 right-3 z-40 flex flex-col items-end gap-1.5 md:bottom-4 md:right-4">
+    <a href={MAX_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в MAX" className="rounded-full bg-primary px-3 py-1.5 text-xs xl:px-4 xl:py-2.5 xl:text-sm text-primary-foreground shadow-soft hover:opacity-90">MAX</a>
+    <a href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать в Telegram" className="rounded-full bg-foreground px-3 py-1.5 text-xs xl:px-4 xl:py-2.5 xl:text-sm text-background shadow-soft hover:opacity-90">Telegram</a>
+    <a href={VK_URL} target="_blank" rel="noopener noreferrer" aria-label="Написать ВКонтакте" className="rounded-full bg-accent px-3 py-1.5 text-xs xl:px-4 xl:py-2.5 xl:text-sm text-accent-foreground shadow-soft hover:opacity-90">ВКонтакте</a>
   </div>;
 }

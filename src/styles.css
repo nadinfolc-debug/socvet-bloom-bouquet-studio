@@ -102,6 +102,18 @@
   font-weight: 500;
 }
 
+/* Один раздел = один экран (ПК): высота экрана минус шапка */
+:root { --header-h: 5rem; }
+@media (min-width: 768px) and (min-height: 560px) {
+  html { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
+}
+@utility screen-block {
+  @media (min-width: 768px) and (min-height: 560px) {
+    min-height: calc(100svh - var(--header-h));
+    scroll-snap-align: start;
+  }
+}
+
 /* Максимальная высота крупного фото: экран минус шапка и отступы */
 @utility max-h-fit-screen {
   max-height: calc(100svh - 13rem);

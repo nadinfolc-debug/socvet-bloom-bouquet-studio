@@ -25,55 +25,54 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   useScrollReveal();
-  const { data: products, isLoading } = useQuery(productsQuery(6));
+  const { data: products, isLoading } = useQuery(productsQuery(4));
 
   return (
     <>
       {/* Спокойный блок: герой */}
-      <section className="relative mx-auto max-w-[1400px] px-6 pb-12 pt-4 md:px-10 md:pb-14">
+      <section className="screen-block relative mx-auto flex max-w-[1400px] flex-col justify-center px-6 pb-12 pt-4 md:px-10 md:py-6">
         <div className="grid items-end gap-10 md:grid-cols-12">
-          <div className="animate-rise md:col-span-5">
-            <p className="eyebrow mb-6 text-primary">Авторская флористика · Москва</p>
-            <h1 className="display-xl">
+          <div className="animate-rise md:col-span-6 lg:col-span-5">
+            <p className="eyebrow mb-4 text-primary md:mb-5">Авторская флористика · Москва</p>
+            <h1 className="display-xl md:[font-size:clamp(3rem,min(8vw,11vh),8.5rem)]">
               Чувства<br />
               <em className="text-primary">обретают</em><br />
               форму
             </h1>
-            <p className="mt-6 max-w-sm text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-sm text-lg leading-relaxed text-muted-foreground">
               Выберите готовый букет или посоветуйтесь с флористом — и мы соберём ваш особенный.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button variant="petal" size="xl" asChild>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button variant="petal" size="xl" className="md:px-7" asChild>
                 <Link to="/catalog">Смотреть букеты</Link>
               </Button>
-              <Button variant="line" size="xl" asChild>
+              <Button variant="line" size="xl" className="md:px-7" asChild>
                 <Link to="/delivery">Доставка</Link>
               </Button>
             </div>
           </div>
-          <div className="md:col-span-7" data-reveal>
-            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[70vh] object-cover shadow-soft md:max-h-fit-screen" />
+          <div className="md:col-span-6 lg:col-span-7" data-reveal>
+            <img src={hero} alt="Скульптурный букет с бордовыми ранункулюсами и сухими травами" width={1600} height={1104} className="w-full max-h-[70vh] object-cover shadow-soft md:max-h-[calc(100svh-24rem)]" />
           </div>
         </div>
+        <Stats />
       </section>
 
-      <Stats />
-
       {/* Коллекция */}
-      <section className="mx-auto max-w-[1400px] px-6 py-12 md:px-10 md:py-14">
-        <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
+      <section className="screen-block mx-auto flex max-w-[1400px] flex-col justify-center px-6 py-12 md:px-10 md:py-10">
+        <div className="mb-8 flex flex-col justify-between gap-6 md:flex-row md:items-end" data-reveal>
           <h2 className="display-lg">Готовые<br /><em className="text-primary">букеты</em></h2>
           <Link to="/catalog" className="eyebrow border-b border-foreground pb-1 hover:border-primary hover:text-primary">
             Весь каталог →
           </Link>
         </div>
         {isLoading ? (
-          <div className="grid gap-12 md:grid-cols-3">
-            {[0, 1, 2].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+            {[0, 1, 2, 3].map((i) => <div key={i} className="aspect-[4/5] animate-pulse bg-muted arch" />)}
           </div>
         ) : products && products.length > 0 ? (
-          <div className="grid gap-x-10 gap-y-14 md:grid-cols-3">
-            {products.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} />)}
+          <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 md:grid-cols-4">
+            {products.map((p, i) => <ProductCard key={p.node.id} product={p} index={i} compact />)}
           </div>
         ) : (
           <EmptyProducts />
@@ -86,8 +85,8 @@ function Index() {
       <Faq />
 
       {/* Насыщенный блок: мастерская */}
-      <section className="relative overflow-hidden bg-ink text-ink-foreground">
-        <div className="mx-auto grid max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-2 md:gap-16 md:px-10 md:py-14">
+      <section className="screen-block relative flex flex-col justify-center overflow-hidden bg-ink text-ink-foreground">
+        <div className="mx-auto grid w-full max-w-[1400px] items-center gap-10 px-6 py-12 md:grid-cols-2 md:gap-16 md:px-10 md:py-10">
           <div data-reveal>
             <p className="eyebrow mb-4 opacity-60">Индивидуальный заказ</p>
             <h2 className="display-lg">Ваш особенный<br /><em className="text-blush">букет</em></h2>
