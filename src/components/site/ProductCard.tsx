@@ -27,7 +27,7 @@ export function ProductCard({ product, index = 0, compact = false }: { product: 
 
   return (
     <Link to="/product/$handle" params={{ handle: p.handle }} className={`group block ${offset}`} data-reveal data-delay={index % 3}>
-      <div className={`relative mx-auto aspect-[4/5] w-full overflow-hidden ${compact ? "max-h-[60vh] md:max-h-[calc(100svh-25rem)]" : "max-h-[60vh]"} bg-milk arch`}>
+      <div className={`relative mx-auto aspect-[4/5] w-full overflow-hidden ${compact ? "max-h-[60vh] md:max-h-[calc(100svh-28rem)]" : "max-h-[60vh]"} bg-milk arch`}>
         {img && (
           <img src={img.url} alt={img.altText ?? p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
         )}
