@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "build:timeweb": "NITRO_PRESET=node-server vite build",
+    "build:timeweb": "vite build",
+    "build:cloudflare": "NITRO_PRESET=cloudflare vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "start": "node .output/server/index.mjs",
