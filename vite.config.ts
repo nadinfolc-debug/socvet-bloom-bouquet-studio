@@ -9,6 +9,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 export default defineConfig({
   // Pre-bundle lazily discovered deps so Vite does not re-optimize mid-session (duplicate React crash).
   vite: { optimizeDeps: { include: ["@radix-ui/react-popover", "react-day-picker", "date-fns/locale"] } },
+  // Timeweb Cloud: NITRO_PRESET=node-server npm run build
+  // (по умолчанию Lovable/Cloudflare preset остаётся)
+  ...(process.env.NITRO_PRESET
+    ? { nitro: { preset: process.env.NITRO_PRESET } }
+    : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

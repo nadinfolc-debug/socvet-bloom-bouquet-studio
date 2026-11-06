@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:timeweb": "NITRO_PRESET=node-server vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "start": "node .output/server/index.mjs",
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "overrides": {
     "rolldown": "1.2.1"
