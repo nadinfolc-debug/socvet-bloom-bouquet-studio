@@ -18,9 +18,18 @@ export const submitDeliveryRequest = createServerFn({ method: 'POST' })
       if (!variant?.availableForSale) throw new Error('Букет недоступен. Обновите корзину.');
       return { ...item, title: variant.product.title, variantTitle: variant.title, unitPrice: Number(variant.price.amount) };
     }));
-    const key = process.env['SUPABASE_PUBLISHABLE_KEY'];
-    const url = process.env['SUPABASE_URL'];
-    if (!key || !url) throw new Error('Не удалось отправить заявку');
+    const key =
+      process.env['SUPABASE_PUBLISHABLE_KEY'] ||
+      process.env['VITE_SUPABASE_PUBLISHABLE_KEY'] ||
+      import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'];
+    const url =
+      process.env['SUPABASE_URL'] ||
+      process.env['VITE_SUPABASE_URL'] ||
+      import.meta.env['VITE_SUPABASE_URL'];
+    if (!key || !url) {
+      console.error('[delivery] Missing SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY on server');
+      throw new Error('Не удалось отправить заявку');
+    }
     const client = createClient(url, key, {
       auth: { persistSession: false, autoRefreshToken: false },
       global: { fetch: (input, init) => {
@@ -36,6 +45,9 @@ export const submitDeliveryRequest = createServerFn({ method: 'POST' })
       message: buildDeliveryMessage(data), consent: true,
       delivery_address: data.address, desired_delivery_time: data.desiredTime, order_lines: lines,
     });
-    if (error) throw new Error('Не удалось отправить заявку');
+    if (error) {
+      console.error('[delivery] florist_requests insert failed', error.message, error.code);
+      throw new Error('Не удалось отправить заявку');
+    }
     return { id };
   });

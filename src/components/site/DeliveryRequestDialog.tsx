@@ -54,7 +54,14 @@ export function DeliveryRequestDialog({ open, onOpenChange }: { open: boolean; o
         if (!parsed.success) { setError(parsed.error.issues[0]?.message ?? 'Проверьте данные'); return; }
         setBusy(true);
         try { await submit({ data: parsed.data }); setSent(true); useCartStore.getState().clearCart(); }
-        catch { setError('Не удалось отправить заявку. Проверьте корзину и попробуйте ещё раз.'); }
+        catch (err) {
+          const message = err instanceof Error ? err.message : '';
+          setError(
+            message.includes('Букет недоступен') || message.includes('Повторяющиеся')
+              ? message
+              : 'Не удалось отправить заявку. Проверьте корзину и попробуйте ещё раз.',
+          );
+        }
         finally { setBusy(false); }
       }}>
         <ul className="space-y-2 border-y py-3 text-sm">{items.map(item => <li key={item.variantId} className="flex justify-between gap-4"><span className="break-words">{item.product.node.title} × {item.quantity}</span><span className="shrink-0">{formatPrice(Number(item.price.amount) * item.quantity)}</span></li>)}</ul>
