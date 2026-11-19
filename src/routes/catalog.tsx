@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { ProductCard, EmptyProducts } from "@/components/site/ProductCard";
+import { Button } from "@/components/ui/button";
 import { productsQuery } from "@/lib/queries";
 
 export const Route = createFileRoute("/catalog")({
@@ -19,14 +20,14 @@ export const Route = createFileRoute("/catalog")({
 });
 
 const sorts = [
-  { id: "new", label: "Новое" },
-  { id: "asc", label: "Сначала нежнее" },
-  { id: "desc", label: "Сначала роскошнее" },
+  { id: "default", label: "По умолчанию", accessibleLabel: "По умолчанию" },
+  { id: "asc", label: "Цена ↑", accessibleLabel: "Цена по возрастанию" },
+  { id: "desc", label: "Цена ↓", accessibleLabel: "Цена по убыванию" },
 ] as const;
 
 function Catalog() {
-  const { data: products, isLoading } = useQuery(productsQuery(100));
-  const [sort, setSort] = useState<(typeof sorts)[number]["id"]>("new");
+  const { data: products, isLoading, isLoadingError, isFetching, refetch } = useQuery(productsQuery(100));
+  const [sort, setSort] = useState<(typeof sorts)[number]["id"]>("default");
   const [collection, setCollection] = useState<string | null>(null);
   const collections = useMemo(() => {
     const map = new Map<string, string>();
@@ -52,25 +53,28 @@ function Catalog() {
           Букеты собираются вручную в день доставки. Состав может меняться по сезону — характер остаётся.
         </p>
       </header>
-      <div role="group" aria-label="Сортировка по цене" className="-mx-2.5 mb-1.5 flex gap-1.5 overflow-x-auto border-y px-2.5 py-1.5 md:mx-0 md:mb-6 md:flex-wrap md:gap-2 md:px-0 md:py-3" data-reveal data-delay="1">
+      <div role="group" aria-label="Сортировка букетов" className="mb-2 grid grid-cols-3 gap-1.5 border-y py-1.5 md:mb-6 md:flex md:flex-wrap md:gap-2 md:py-3" data-reveal data-delay="1">
         {sorts.map((s) => (
           <button
             key={s.id}
             type="button"
             onClick={() => setSort(s.id)}
+            aria-label={s.accessibleLabel}
             aria-pressed={sort === s.id}
-            className={`eyebrow min-h-8 shrink-0 rounded-full px-2.5 text-[11px] transition-colors md:min-h-11 md:px-5 md:text-xs ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
+            className={`min-h-11 rounded-full px-1 text-xs font-medium transition-colors md:px-5 md:text-sm ${sort === s.id ? "bg-primary text-primary-foreground" : "hover:text-primary"}`}
           >
             {s.label}
           </button>
         ))}
-        <span className="eyebrow ml-auto hidden shrink-0 self-center text-muted-foreground md:inline" role="status" aria-live="polite">{list.length} композиций</span>
+        {products && (
+          <span className="eyebrow ml-auto hidden shrink-0 self-center text-muted-foreground md:inline">Букеты: {list.length}</span>
+        )}
       </div>
       {collections.length > 0 && (
         <div role="group" aria-label="Подборки" className="-mx-2.5 mb-2 flex gap-1.5 overflow-x-auto px-2.5 md:mx-0 md:mb-10 md:flex-wrap md:gap-2 md:px-0" data-reveal data-delay="2">
           {[{ id: null, title: "Все букеты" }, ...collections].map((c) => (
             <button type="button" key={c.id ?? "all"} onClick={() => setCollection(c.id)} aria-pressed={collection === c.id}
-              className={`min-h-8 shrink-0 rounded-full border px-2.5 text-[11px] transition-colors md:min-h-11 md:px-5 md:text-sm ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
+              className={`min-h-11 shrink-0 rounded-full border px-3 text-xs transition-colors md:px-5 md:text-sm ${collection === c.id ? "border-primary bg-primary text-primary-foreground" : "hover:border-primary hover:text-primary"}`}>
               {c.title}
             </button>
           ))}
@@ -80,10 +84,24 @@ function Catalog() {
         <div className="grid grid-cols-2 gap-2 md:gap-10 lg:grid-cols-4" aria-busy="true" aria-label="Загрузка букетов">
           {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="aspect-square animate-pulse rounded-sm bg-muted md:aspect-[4/5]" />)}
         </div>
+      ) : isLoadingError ? (
+        <div className="space-y-4 px-4 py-12 text-center">
+          <p role="status">Не удалось загрузить букеты.</p>
+          <Button type="button" variant="outline" disabled={isFetching} onClick={() => void refetch()}>
+            {isFetching ? "Загрузка…" : "Повторить"}
+          </Button>
+        </div>
       ) : list.length > 0 ? (
         <ul className="grid grid-cols-2 gap-x-2 gap-y-3 md:gap-x-8 md:gap-y-14 lg:grid-cols-4" aria-label="Букеты">
           {list.map((p, i) => <li key={p.node.id}><ProductCard product={p} index={i} dense /></li>)}
         </ul>
+      ) : collection ? (
+        <div className="space-y-4 px-4 py-12 text-center">
+          <p role="status">В этой подборке пока нет букетов.</p>
+          <Button type="button" variant="outline" onClick={() => setCollection(null)}>
+            Показать все букеты
+          </Button>
+        </div>
       ) : (
         <EmptyProducts />
       )}

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ADDRESS, EMAIL, HOURS, PHONE, PHONE_HREF, PORTFOLIO_CHANNEL_URL } from "@/lib/contacts";
+import { ADDRESS, EMAIL, HOURS, PHONE, PHONE_HREF } from "@/lib/contacts";
 
 export function Footer() {
   return (
@@ -18,14 +18,6 @@ export function Footer() {
               Каталог, корзина, заявки и кабинет владельца — адаптирую под ваш характер.
             </p>
           </div>
-          <a
-            href={PORTFOLIO_CHANNEL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="eyebrow inline-flex min-h-12 items-center justify-center rounded-full bg-blush px-7 py-3 text-ink hover:bg-ink-foreground"
-          >
-            Заказать проект →
-          </a>
         </div>
       </div>
 

@@ -100,7 +100,7 @@ export function ProductCard({
                 ? `${p.title} — нет в наличии`
                 : `Добавить в корзину: ${p.title}`
             }
-            className="absolute bottom-1.5 right-1.5 z-20 grid h-8 w-8 place-items-center rounded-full bg-background/95 text-lg leading-none shadow-sm hover:bg-primary hover:text-primary-foreground disabled:opacity-60 md:hidden"
+            className="absolute bottom-1.5 right-1.5 z-20 grid size-11 place-items-center rounded-full bg-background/95 text-lg leading-none shadow-sm hover:bg-primary hover:text-primary-foreground disabled:opacity-60 md:hidden"
           >
             {variant?.availableForSale === false ? "–" : "+"}
           </button>
